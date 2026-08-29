@@ -132,7 +132,7 @@ export const Sidebar: React.FC = () => {
       {
         id: 'cases',
         label: 'Municipal Case Masterfile',
-        subtitle: 'All 6 Barangays Overview',
+        subtitle: 'All 5 Barangays Overview',
         icon: <FileSpreadsheet className="w-4 h-4" />,
         badge: safeCases.length
       },

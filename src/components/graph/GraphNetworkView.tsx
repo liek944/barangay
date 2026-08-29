@@ -940,14 +940,13 @@ export const GraphNetworkView: React.FC = () => {
                   </div>
 
                   <div className="bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-[11px] text-slate-700 space-y-1">
-                    <span className="font-bold block text-slate-900">Jurisdictional Coverage (All 6 Barangays):</span>
+                    <span className="font-bold block text-slate-900">Jurisdictional Coverage (All 5 Barangays):</span>
                     <div className="grid grid-cols-2 gap-1 text-[10px] font-mono">
                       <span>• Bagumbayan: 0.4 km</span>
                       <span>• Odiong: 2.1 km</span>
                       <span>• San Aquilino: 3.8 km</span>
                       <span>• Victoria: 4.5 km</span>
                       <span>• San Miguel: 5.2 km</span>
-                      <span>• Libertad: 6.4 km</span>
                     </div>
                   </div>
                 </div>
@@ -976,7 +975,6 @@ export const GraphNetworkView: React.FC = () => {
                         ? `Blotter Entry: ${selectedNode.rawCase.policeCaseNo || selectedNode.rawCase.blotterEntryNo || 'Logged at Roxas MPS'}`
                         : `Distance to Station: ~${
                             selectedNode.rawCase.barangay === 'San Aquilino' ? '3.8 km (8 mins)' :
-                            selectedNode.rawCase.barangay === 'Libertad' ? '6.4 km (13 mins)' :
                             selectedNode.rawCase.barangay === 'Odiong' ? '2.1 km (5 mins)' : '0.4 km'
                           }`}
                     </p>

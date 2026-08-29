@@ -264,7 +264,7 @@ export const CreateAccountModal: React.FC = () => {
             <div className="p-3.5 bg-emerald-50/60 border border-emerald-200 rounded-xl space-y-2">
               <label className="block text-xs font-bold text-emerald-950 flex items-center gap-1.5">
                 <Building2 className="w-4 h-4 text-emerald-700" />
-                {agencyType === 'RESIDENT' ? 'Tinitirahang Barangay sa Roxas (Home Barangay)' : 'Select Barangay Assignment (6 Barangays of Roxas)'} <span className="text-rose-500">*</span>
+                {agencyType === 'RESIDENT' ? 'Tinitirahang Barangay sa Roxas (Home Barangay)' : 'Select Barangay Assignment (5 Barangays of Roxas)'} <span className="text-rose-500">*</span>
               </label>
               <select
                 id="select-account-barangay"

@@ -717,7 +717,7 @@ export const GeospatialGraphMap: React.FC<GeospatialGraphMapProps> = ({
           </div>
           <div className="flex items-center space-x-1">
             <span className="w-2.5 h-2.5 rounded-sm bg-teal-600 inline-block" />
-            <span className="text-slate-600 font-medium">6 Barangays</span>
+            <span className="text-slate-600 font-medium">5 Barangays</span>
           </div>
           <div className="flex items-center space-x-1">
             <span className="w-2.5 h-2.5 rounded-full bg-indigo-700 inline-block" />
@@ -1047,7 +1047,7 @@ export const GeospatialGraphMap: React.FC<GeospatialGraphMapProps> = ({
                     </div>
                   </div>
 
-                  {/* Road Distance & Response Matrix to all 6 Barangays */}
+                  {/* Road Distance & Response Matrix to all 5 Barangays */}
                   <div className="bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs space-y-2">
                     <div className="font-bold text-slate-800 flex items-center justify-between">
                       <span className="flex items-center gap-1">
@@ -1111,7 +1111,6 @@ export const GeospatialGraphMap: React.FC<GeospatialGraphMapProps> = ({
                         ? `Blotter Entry / Case: ${selectedNode.rawCase.policeCaseNo || selectedNode.rawCase.blotterEntryNo || 'Under Investigation'} (Roxas MPS)`
                         : `Distance to Roxas Police Station: ~${
                             selectedNode.rawCase.barangay === 'San Aquilino' ? '3.8 km (8 mins)' :
-                            selectedNode.rawCase.barangay === 'Libertad' ? '6.4 km (13 mins)' :
                             selectedNode.rawCase.barangay === 'Odiong' ? '2.1 km (5 mins)' :
                             selectedNode.rawCase.barangay === 'Victoria' ? '4.5 km (10 mins)' :
                             selectedNode.rawCase.barangay === 'San Miguel' ? '5.2 km (11 mins)' : '0.4 km (2 mins)'

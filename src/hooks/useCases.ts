@@ -5,7 +5,7 @@ import { NotificationContext } from '../context/NotificationContext';
 import { supabase } from '../utils/supabaseClient';
 import { Case, CaseStatus, TimelineEvent, AgencyType, UserRole } from '../types';
 
-const VALID_6_BARANGAYS: string[] = ['San Aquilino', 'Bagumbayan', 'Libertad', 'Odiong', 'San Miguel', 'Victoria'];
+const VALID_5_BARANGAYS: string[] = ['San Aquilino', 'Bagumbayan', 'Odiong', 'San Miguel', 'Victoria'];
 
 export const useCases = () => {
   const caseState = useContext(CaseContext);
@@ -101,8 +101,8 @@ export const useCases = () => {
       currentNarrativeSummary: data.initialNarrative || '',
       dateReported: data.dateReported || now,
       incidentDate: data.incidentDate || now.split('T')[0],
-      barangay: (data.barangay && VALID_6_BARANGAYS.includes(data.barangay)) ? data.barangay : (currentUser.barangay || 'San Aquilino'),
-      specificLocation: data.specificLocation || `Barangay ${(data.barangay && VALID_6_BARANGAYS.includes(data.barangay)) ? data.barangay : (currentUser.barangay || 'San Aquilino')}, Roxas`,
+      barangay: (data.barangay && VALID_5_BARANGAYS.includes(data.barangay)) ? data.barangay : (currentUser.barangay || 'San Aquilino'),
+      specificLocation: data.specificLocation || `Barangay ${(data.barangay && VALID_5_BARANGAYS.includes(data.barangay)) ? data.barangay : (currentUser.barangay || 'San Aquilino')}, Roxas`,
       complainants: data.complainants || [],
       respondents: data.respondents || [],
       witnesses: data.witnesses || [],

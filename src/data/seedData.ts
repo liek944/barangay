@@ -140,96 +140,6 @@ export const SEED_CASES: Case[] = [
     createdBy: 'Hon. Elena V. Macalalad'
   },
   {
-    id: 'BC-2026-002',
-    incidentId: 'INC-2026-002',
-    complaintId: 'CMP-2026-002',
-    title: 'Municipal Van vs Motorcycle Side-Swipe Incident along Port Access',
-    category: 'Motorcycle vs Car / SUV Collision',
-    description: 'Side-impact collision involving a municipal government utility van and a resident motorcycle rider along Purok 2 Port Access Road in Barangay Libertad.',
-    initialNarrative: 'A white Toyota Hiace utility van assigned to the Municipal Engineering Office side-swiped a Yamaha Aerox motorcycle during an overtaking maneuver on a narrow asphalt stretch near Libertad Port.',
-    currentNarrativeSummary: 'Motorcycle sustained fairing scrapes and bent foot-peg. Driver sustained minor leg contusion. LGU Municipal Administrator assumed oversight, processed vehicle insurance claim, and issued traffic safety memorandum for municipal vehicle drivers.',
-    dateReported: '2026-03-01T09:15:00.000Z',
-    incidentDate: '2026-02-27',
-    barangay: 'Libertad',
-    specificLocation: 'Port Access Road, Purok 2, Barangay Libertad, Roxas, Oriental Mindoro',
-    
-    complainants: [
-      { id: 'P-201', name: 'Teresa Villanueva (Rider)', role: 'Complainant', contact: '0929-112-3344', address: 'Purok 2', barangay: 'Libertad' }
-    ],
-    respondents: [
-      { id: 'P-202', name: 'Kagawad Danilo Reyes (Municipal Driver / Official)', role: 'Respondent', isOfficial: true, officialPosition: 'Municipal Vehicle Driver / Kagawad', officialAgency: 'Municipal Government of Roxas', address: 'Purok 1', barangay: 'Libertad' }
-    ],
-    witnesses: [
-      { id: 'P-203', name: 'Lourdes Carandang', role: 'Witness', contact: '0919-887-5544', address: 'Purok 2', barangay: 'Libertad' }
-    ],
-    personsInvolved: [
-      { id: 'P-201', name: 'Teresa Villanueva', role: 'Complainant', barangay: 'Libertad' },
-      { id: 'P-202', name: 'Kagawad Danilo Reyes', role: 'Respondent', isOfficial: true, officialPosition: 'Municipal Driver / Kagawad', barangay: 'Libertad' }
-    ],
-    
-    isInvolvingOfficial: true,
-    officialInvolvedType: 'Municipal / LGU Official',
-    officialInvolvedName: 'Kagawad Danilo Reyes',
-    officialInvolvedPosition: 'Municipal Utility Vehicle Driver / Kagawad',
-    officialInvolvedAgency: 'Municipal Government of Roxas',
-    
-    originatingAgency: 'Barangay Libertad LGU',
-    currentHandlingAgency: 'Municipal Government of Roxas (LGU Executive & Traffic Oversight)',
-    assignedPersonnel: 'Atty. Clarissa Reyes (Municipal Administrator)',
-    priority: 'High',
-    status: 'Resolved',
-
-    isAccidentEmergency: false,
-    accidentVehicleDetails: 'Municipal Toyota HiAce (Government Plate # SAA-9120) vs Yamaha Aerox 155 (Plate # 5512-AB)',
-    accidentCasualties: '1 minor injury (leg contusion treated at Roxas Medicare Clinic)',
-    collisionImpactType: 'Side-Swipe / T-Bone',
-    roadSurfaceCondition: 'Dry & Clear',
-    weatherCondition: 'Clear & Sunny',
-    injuriesCount: 1,
-    casualtiesCount: 0,
-    isHitAndRun: false,
-    vehiclesInvolved: [
-      {
-        id: 'VEH-003',
-        vehicleType: 'Van',
-        makeModel: 'Toyota HiAce Commuter (White LGU Service)',
-        plateNumberOrConduction: 'SAA-9120',
-        driverName: 'Danilo Reyes',
-        driverLicenseNo: 'D01-12-049811',
-        driverCondition: 'Uninjured',
-        damageSeverity: 'Minor Dent/Scratch',
-        helmetOrSeatbeltWorn: true,
-        insuranceCoverage: true
-      },
-      {
-        id: 'VEH-004',
-        vehicleType: 'Motorcycle',
-        makeModel: 'Yamaha Aerox 155 (Cyan/Black)',
-        plateNumberOrConduction: '5512-AB',
-        driverName: 'Teresa Villanueva',
-        driverLicenseNo: 'D02-20-077412',
-        driverCondition: 'Minor Scratches/Bruises',
-        damageSeverity: 'Moderate Functional Damage',
-        helmetOrSeatbeltWorn: true,
-        insuranceCoverage: true
-      }
-    ],
-    statusHistory: [
-      { id: 'SH-004', previousStatus: 'Unresolved', newStatus: 'Unresolved', reason: 'Logged as government vehicle accident', changedBy: 'Barangay Libertad Admin', changedByRole: 'Barangay Secretary', agency: 'Barangay Libertad LGU', timestamp: '2026-03-01T10:00:00.000Z' },
-      { id: 'SH-005', previousStatus: 'Unresolved', newStatus: 'Unresolved', reason: 'Transmitted to Municipal Administrator for government vehicle insurance settlement', changedBy: 'Atty. Clarissa Reyes', changedByRole: 'LGU Administrator', agency: 'Municipal Government of Roxas', timestamp: '2026-03-03T11:00:00.000Z' },
-      { id: 'SH-006', previousStatus: 'Unresolved', newStatus: 'Resolved', reason: 'Insurance claim disbursed and settlement executed', changedBy: 'Atty. Clarissa Reyes', changedByRole: 'LGU Administrator', agency: 'Municipal Government of Roxas', timestamp: '2026-03-09T16:00:00.000Z' }
-    ],
-    timeline: [
-      { id: 'TL-005', caseId: 'BC-2026-002', title: 'Crash Reported', description: 'Side-swipe incident occurred along Libertad Port road.', stage: 'Report Filed', actorName: 'Teresa Villanueva', actorRole: 'Complainant', actorAgency: 'Barangay Libertad LGU', timestamp: '2026-03-01T09:15:00.000Z' },
-      { id: 'TL-006', caseId: 'BC-2026-002', title: 'Transmitted to LGU Admin', description: 'Barangay forwarded accident dossier to Municipal Administrator.', stage: 'Status Update', actorName: 'Barangay Libertad Admin', actorRole: 'Barangay Secretary', actorAgency: 'Barangay Libertad LGU', timestamp: '2026-03-02T09:00:00.000Z' },
-      { id: 'TL-007', caseId: 'BC-2026-002', title: 'Insurance Settlement Processed', description: 'Municipal Administrator authorized vehicle repair disbursement.', stage: 'LGU Action', actorName: 'Atty. Clarissa Reyes', actorRole: 'Municipal Administrator', actorAgency: 'Municipal Government of Roxas', timestamp: '2026-03-06T10:30:00.000Z' },
-      { id: 'TL-008', caseId: 'BC-2026-002', title: 'Case Closed & Resolved', description: 'Vehicle repair completed and mutual satisfaction signed.', stage: 'Resolution', actorName: 'Atty. Clarissa Reyes', actorRole: 'Municipal Administrator', actorAgency: 'Municipal Government of Roxas', timestamp: '2026-03-09T16:00:00.000Z' }
-    ],
-    dateCreated: '2026-03-01T09:15:00.000Z',
-    dateLastUpdated: '2026-03-09T16:00:00.000Z',
-    createdBy: 'Barangay Libertad Secretary'
-  },
-  {
     id: 'BC-2026-003',
     incidentId: 'INC-2026-003',
     complaintId: 'CMP-2026-003',
@@ -248,14 +158,14 @@ export const SEED_CASES: Case[] = [
       { id: 'P-302', name: 'Elena Ramos (Spouse)', role: 'Complainant', contact: '0917-223-8890', address: 'Purok 4', barangay: 'San Miguel' }
     ],
     respondents: [
-      { id: 'P-303', name: 'Gary Cruz (Rider 2 - Counterflow)', role: 'Respondent', contact: '0948-333-1122', address: 'Purok 5', barangay: 'Libertad' }
+      { id: 'P-303', name: 'Gary Cruz (Rider 2 - Counterflow)', role: 'Respondent', contact: '0948-333-1122', address: 'Purok 5', barangay: 'Odiong' }
     ],
     witnesses: [
       { id: 'P-305', name: 'Renato Dalisay (Gasoline Station Attendant)', role: 'Witness', contact: '0908-112-9988', address: 'San Miguel Highway', barangay: 'San Miguel' }
     ],
     personsInvolved: [
       { id: 'P-301', name: 'Michael Ramos', role: 'Victim', barangay: 'San Miguel' },
-      { id: 'P-303', name: 'Gary Cruz', role: 'Respondent', barangay: 'Libertad' }
+      { id: 'P-303', name: 'Gary Cruz', role: 'Respondent', barangay: 'Odiong' }
     ],
     
     isInvolvingOfficial: false,

@@ -338,7 +338,6 @@ export interface AnnualStatistics {
 
 export const ROXAS_BARANGAYS = [
   'Bagumbayan',
-  'Libertad',
   'Odiong',
   'San Aquilino',
   'San Miguel',
@@ -348,10 +347,10 @@ export const ROXAS_BARANGAYS = [
 export const AGENCIES_LIST = [
   { 
     id: 'BARANGAY_OFFICES', 
-    name: 'Barangay Local Government Units (6 Barangays of Roxas)', 
+    name: 'Barangay Local Government Units (5 Barangays of Roxas)', 
     type: 'BARANGAY',
     description: 'First-line community intake, Katarungang Pambarangay conciliation, accident alarms, and local peace & order.',
-    jurisdictionScope: '6 Component Barangays (Bagumbayan, Libertad, Odiong, San Aquilino, San Miguel, Victoria)'
+    jurisdictionScope: '5 Component Barangays (Bagumbayan, Odiong, San Aquilino, San Miguel, Victoria)'
   },
   { 
     id: 'RESIDENT_COMMUNITY', 

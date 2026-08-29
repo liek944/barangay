@@ -139,24 +139,6 @@ export const SYSTEM_BARANGAYS_GEO: SystemBarangayGeo[] = [
       [12.5995, 121.4775],
       [12.5995, 121.4635]
     ]
-  },
-  {
-    name: 'Libertad',
-    code: 'LBT',
-    lat: 12.6142,
-    lng: 121.4736,
-    zoom: 15,
-    zoneType: 'Coastal & Maritime',
-    description: 'Northwestern barangay with access to upland agriculture and northern coastal corridors.',
-    puroks: ['Purok 1 Baybayin', 'Purok 2 Centro', 'Purok 3 Fish Port Road', 'Purok 4 Coastal Terminal'],
-    hallLocation: 'Coastal Road, Brgy. Libertad, Roxas',
-    contactEmergency: '0928-345-6712 (Brgy. Hall)',
-    boundary: [
-      [12.6230, 121.4665],
-      [12.6230, 121.4805],
-      [12.6075, 121.4805],
-      [12.6075, 121.4665]
-    ]
   }
 ];
 
@@ -748,7 +730,7 @@ export const GeographicBarangayMap: React.FC = () => {
     setSelectedCaseId
   ]);
 
-  // Recenter map on specific barangay or all 6 barangays
+  // Recenter map on specific barangay or all 5 barangays
   const handleFocusBarangay = (barangayName: string) => {
     setSelectedBarangayFilter(barangayName);
     setInspectedBarangayName(barangayName);
@@ -855,7 +837,7 @@ export const GeographicBarangayMap: React.FC = () => {
                   : 'text-slate-700 hover:bg-slate-200/60'
               }`}
             >
-              All 6 Barangays
+              All 5 Barangays
             </button>
 
             {ROXAS_BARANGAYS.map((bName) => {
@@ -1164,7 +1146,7 @@ export const GeographicBarangayMap: React.FC = () => {
               </div>
             </div>
           ) : (
-            /* Default All 6 Barangays Overview Card */
+            /* Default All 5 Barangays Overview Card */
             <div className="bg-white rounded-xl border border-slate-200 p-4 shadow-sm space-y-3">
               <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
                 <TrendingUp className="w-4 h-4 text-emerald-600" />

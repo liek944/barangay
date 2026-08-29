@@ -57,7 +57,7 @@ export const SystemAdminView: React.FC = () => {
             System Administration & Inter-Agency Node Configuration
           </h2>
           <p className="text-xs text-slate-400 mt-1 max-w-2xl">
-            Managing agency access credentials, 6 barangay master registries, graph relationship engine configs, and data retention policies for Roxas, Oriental Mindoro.
+            Managing agency access credentials, 5 barangay master registries, graph relationship engine configs, and data retention policies for Roxas, Oriental Mindoro.
           </p>
         </div>
 
@@ -257,14 +257,14 @@ export const SystemAdminView: React.FC = () => {
         )}
       </div>
 
-      {/* 6 Barangays Master List */}
+      {/* 5 Barangays Master List */}
       <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5 space-y-3">
         <h3 className="font-bold text-sm text-slate-900 flex items-center gap-1.5">
           <Building2 className="w-4 h-4 text-sky-700" />
-          Master Barangay Registry (6 Barangays of Roxas, Oriental Mindoro)
+          Master Barangay Registry (5 Barangays of Roxas, Oriental Mindoro)
         </h3>
         
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
           {ROXAS_BARANGAYS.map((b) => (
             <div key={b} className="p-3 bg-slate-50 rounded-lg border border-slate-200 text-center">
               <span className="text-xs font-bold text-slate-800 block truncate">Barangay {b}</span>
