@@ -144,15 +144,7 @@ export const SYSTEM_BARANGAYS_GEO: SystemBarangayGeo[] = [
 
 // Municipal Government & Law Enforcement Agency Hubs (Exact Coordinates)
 export const MUNICIPAL_AGENCY_HUBS = [
-  {
-    id: 'HUB-PNP',
-    name: 'Roxas Municipal Police Station',
-    shortName: 'Roxas MPS (PNP)',
-    type: 'POLICE' as const,
-    lat: 12.5912,
-    lng: 121.5184,
-    address: 'Morente Avenue (Road 454), Camp Gozar (beside Roxas Fire Station & across Roxas Municipal Gymnasium), Roxas, Oriental Mindoro'
-  },
+
   {
     id: 'HUB-LGU',
     name: 'Municipal Government Center of Roxas',
@@ -274,7 +266,7 @@ export const GeographicBarangayMap: React.FC = () => {
       if (gisMode === 'officials' && !c.isInvolvingOfficial) {
         return false;
       }
-      if (gisMode === 'referrals' && !c.isReferredToPolice && !c.isReferredToLgu && !c.isMonitoredByDilg) {
+      if (gisMode === 'referrals' && !c.isReferredToLgu && !c.isMonitoredByDilg) {
         return false;
       }
 
@@ -327,7 +319,7 @@ export const GeographicBarangayMap: React.FC = () => {
       stats.total += 1;
       if (c.isPending || c.status === 'Pending') stats.pending += 1;
       if (c.status === 'Resolved' || c.status === 'Closed') stats.resolved += 1;
-      if (c.isReferredToPolice || c.isReferredToLgu || c.isMonitoredByDilg) stats.referred += 1;
+      if (c.isReferredToLgu || c.isMonitoredByDilg) stats.referred += 1;
       if (c.isInvolvingOfficial) stats.officials += 1;
       stats.cases.push(c);
       stats.categories[c.category] = (stats.categories[c.category] || 0) + 1;
@@ -465,7 +457,6 @@ export const GeographicBarangayMap: React.FC = () => {
 
     // 2. Inter-Agency Referral Flow Lines (to Municipal Agency Hubs)
     if (showReferralLines && referralLinesGroupRef.current) {
-      const policeHub = MUNICIPAL_AGENCY_HUBS.find(h => h.type === 'POLICE')!;
       const lguHub = MUNICIPAL_AGENCY_HUBS.find(h => h.type === 'LGU')!;
       const dilgHub = MUNICIPAL_AGENCY_HUBS.find(h => h.type === 'DILG')!;
 
@@ -474,19 +465,8 @@ export const GeographicBarangayMap: React.FC = () => {
         const stats = barangayStats.get(b.name);
         if (!stats) return;
 
-        const policeCount = stats.cases.filter(c => c.isReferredToPolice).length;
         const lguCount = stats.cases.filter(c => c.isReferredToLgu).length;
         const dilgCount = stats.cases.filter(c => c.isMonitoredByDilg).length;
-
-        if (policeCount > 0) {
-          const line = L.polyline([[b.lat, b.lng], [policeHub.lat, policeHub.lng]], {
-            color: '#2563eb',
-            weight: 2.5,
-            dashArray: '6, 6',
-            opacity: 0.85
-          });
-          referralLinesGroupRef.current?.addLayer(line);
-        }
 
         if (lguCount > 0) {
           const line = L.polyline([[b.lat, b.lng], [lguHub.lat, lguHub.lng]], {
@@ -510,12 +490,12 @@ export const GeographicBarangayMap: React.FC = () => {
       });
     }
 
-    // 3. Municipal Agency Hub Markers (PNP, LGU, DILG)
+    // 3. Municipal Agency Hub Markers (LGU, DILG)
     if (showHubs && markersLayerGroupRef.current) {
       MUNICIPAL_AGENCY_HUBS.forEach((hub) => {
         const hubHtml = `
           <div style="
-            background: ${hub.type === 'POLICE' ? '#1e3a8a' : hub.type === 'DILG' ? '#581c87' : '#064e3b'};
+            background: ${hub.type === 'DILG' ? '#581c87' : '#064e3b'};
             color: white;
             padding: 4px 8px;
             border-radius: 8px;
@@ -529,7 +509,7 @@ export const GeographicBarangayMap: React.FC = () => {
             border: 2px solid white;
             white-space: nowrap;
           ">
-            <span style="font-size: 13px;">${hub.type === 'POLICE' ? '🛡️' : hub.type === 'DILG' ? '🏛️' : '🏢'}</span>
+            <span style="font-size: 13px;">${hub.type === 'DILG' ? '🏛️' : '🏢'}</span>
             <span>${hub.shortName}</span>
           </div>
         `;
@@ -637,7 +617,6 @@ export const GeographicBarangayMap: React.FC = () => {
           let dotColor = '#10b981';
           if (c.isInvolvingOfficial) dotColor = '#e11d48';
           else if (c.isPending || c.status === 'Pending') dotColor = '#f59e0b';
-          else if (c.isReferredToPolice) dotColor = '#2563eb';
 
           const caseMarkerHtml = `
             <div style="
@@ -1006,7 +985,7 @@ export const GeographicBarangayMap: React.FC = () => {
                 onChange={(e) => setShowHubs(e.target.checked)}
                 className="rounded text-emerald-600 focus:ring-0"
               />
-              <span>Agency Hubs (PNP/LGU)</span>
+              <span>Agency Hubs (LGU/DILG)</span>
             </label>
             <label className="flex items-center gap-1.5 cursor-pointer select-none text-slate-700 font-medium">
               <input

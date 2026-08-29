@@ -55,13 +55,12 @@ export function generateAnnualStatistics(cases: Case[], year: number): AnnualSta
   let totalClosedCases = 0;
   let totalOngoingCases = 0;
   let totalPendingCases = 0;
-  let totalReferredToPolice = 0;
   let totalReferredToLgu = 0;
   let totalMonitoredByDilg = 0;
   let casesInvolvingBarangayOfficials = 0;
   let casesInvolvingLocalOfficials = 0;
   let casesResolvedAtBarangayLevel = 0;
-  let casesNotReferredToPolice = 0;
+
   let casesTransferredBetweenAgencies = 0;
   let totalResolutionDaysSum = 0;
   let resolvedCountWithDays = 0;

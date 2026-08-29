@@ -157,7 +157,6 @@ export const GraphNetworkView: React.FC = () => {
     // Structural coordinates for multi-case or all-cases view
     const agencyCoords: Record<string, { x: number; y: number }> = {
       'AGENCY-BARANGAY': { x: centerX - 120, y: centerY - 90 },
-      'AGENCY-POLICE': { x: centerX + 120, y: centerY - 90 },
       'AGENCY-LGU': { x: centerX - 120, y: centerY + 100 },
       'AGENCY-DILG': { x: centerX + 120, y: centerY + 100 }
     };
@@ -496,7 +495,7 @@ export const GraphNetworkView: React.FC = () => {
               </div>
               <div className="flex items-center space-x-1.5">
                 <span className="w-3 h-3 rounded-full bg-emerald-600 inline-block" />
-                <span className="text-slate-600 font-medium">Agencies (4)</span>
+                <span className="text-slate-600 font-medium">Agencies (3)</span>
               </div>
             </div>
           </div>
@@ -914,72 +913,8 @@ export const GraphNetworkView: React.FC = () => {
                 </div>
               </div>
 
-              {/* Dedicated Police Station Profile */}
-              {selectedNode.id === 'AGENCY-POLICE' && (
-                <div className="space-y-2.5 pt-1">
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-xs space-y-2">
-                    <div className="flex items-center gap-1.5 font-bold text-blue-950">
-                      <Shield className="w-4 h-4 text-blue-700" />
-                      <span>Roxas Municipal Police Station (PNP)</span>
-                    </div>
-
-                    <div className="text-[11px] text-blue-900 space-y-1">
-                      <div>
-                        <strong>Exact Location:</strong> Morente Avenue (Road 454), Camp Gozar (beside Roxas Fire Station & across Roxas Gymnasium), Roxas, Oriental Mindoro 5212
-                      </div>
-                      <div>
-                        <strong>GPS Coordinates:</strong> 12.5919° N, 121.5189° E
-                      </div>
-                      <div>
-                        <strong>Station Chief:</strong> PMAJ Rommel Castro (Chief of Police)
-                      </div>
-                      <div>
-                        <strong>Hotlines:</strong> 0998-598-6084 • (043) 289-2041 • 911
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-[11px] text-slate-700 space-y-1">
-                    <span className="font-bold block text-slate-900">Jurisdictional Coverage (All 5 Barangays):</span>
-                    <div className="grid grid-cols-2 gap-1 text-[10px] font-mono">
-                      <span>• Bagumbayan: 0.4 km</span>
-                      <span>• Odiong: 2.1 km</span>
-                      <span>• San Aquilino: 3.8 km</span>
-                      <span>• Victoria: 4.5 km</span>
-                      <span>• San Miguel: 5.2 km</span>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Case-specific Police Connection */}
               {selectedNode.rawCase && (
                 <div className="pt-1 space-y-2">
-                  <div className="bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-xs space-y-1">
-                    <div className="font-semibold text-slate-800 flex items-center justify-between">
-                      <span className="flex items-center gap-1">
-                        <Shield className="w-3.5 h-3.5 text-blue-600" />
-                        Police Station Status:
-                      </span>
-                      <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
-                        selectedNode.rawCase.isReferredToPolice
-                          ? 'bg-blue-100 text-blue-800'
-                          : 'bg-emerald-100 text-emerald-800'
-                      }`}>
-                        {selectedNode.rawCase.isReferredToPolice ? 'Referred to Police' : 'Barangay Lupon Stage'}
-                      </span>
-                    </div>
-
-                    <p className="text-[11px] text-slate-600">
-                      {selectedNode.rawCase.isReferredToPolice
-                        ? `Blotter Entry: ${selectedNode.rawCase.policeCaseNo || selectedNode.rawCase.blotterEntryNo || 'Logged at Roxas MPS'}`
-                        : `Distance to Station: ~${
-                            selectedNode.rawCase.barangay === 'San Aquilino' ? '3.8 km (8 mins)' :
-                            selectedNode.rawCase.barangay === 'Odiong' ? '2.1 km (5 mins)' : '0.4 km'
-                          }`}
-                    </p>
-                  </div>
-
                   <button
                     onClick={() => setSelectedCaseId(selectedNode.rawCase!.id)}
                     className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer shadow transition"

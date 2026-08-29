@@ -116,7 +116,6 @@ export interface TimelineEvent {
     | 'Report Filed'
     | 'Initial Assessment'
     | 'Barangay Action / Lupon'
-    | 'Police Action'
     | 'LGU Action'
     | 'Status Update'
     | 'Resolution'
@@ -151,7 +150,7 @@ export interface Case {
   
   // Officials Tracking
   isInvolvingOfficial: boolean;
-  officialInvolvedType?: 'Barangay Official' | 'Municipal / LGU Official' | 'Police Personnel' | 'None';
+  officialInvolvedType?: 'Barangay Official' | 'Municipal / LGU Official' | 'None';
   officialInvolvedName?: string;
   officialInvolvedPosition?: string;
   officialInvolvedAgency?: string;

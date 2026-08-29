@@ -46,7 +46,7 @@ export const CreateNotificationModal: React.FC<CreateNotificationModalProps> = (
     if (!title.trim() || !message.trim()) return;
 
     const targetAgencyTypes: AgencyType[] = targetAgencyType === 'ALL' 
-      ? ['RESIDENT', 'BARANGAY', 'POLICE', 'LGU', 'DILG', 'ADMIN'] 
+      ? ['RESIDENT', 'BARANGAY', 'LGU', 'DILG', 'ADMIN'] 
       : [targetAgencyType];
 
     const targetRoles: UserRole[] | undefined = targetAgencyType === 'RESIDENT' 
@@ -128,7 +128,6 @@ export const CreateNotificationModal: React.FC<CreateNotificationModalProps> = (
                 {[
                   { id: 'RESIDENT', label: 'Residents Only', desc: 'Citizens of Roxas' },
                   { id: 'BARANGAY', label: 'Barangay Lupon', desc: 'Barangay Officials' },
-                  { id: 'POLICE', label: 'PNP Police', desc: 'Police Station' },
                   { id: 'LGU', label: 'LGU Municipal', desc: 'Mayor & Social Welfare' },
                   { id: 'DILG', label: 'DILG Oversight', desc: 'MLGOO & Directors' },
                   { id: 'ALL', label: 'All Agencies', desc: 'Broadcast Network' }

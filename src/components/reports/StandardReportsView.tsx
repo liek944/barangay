@@ -18,7 +18,7 @@ import { ROXAS_BARANGAYS } from '../../types';
 
 export const StandardReportsView: React.FC = () => {
   const { cases, setSelectedCaseId } = useCases();
-  const [reportType, setReportType] = useState<'DAILY' | 'MONTHLY' | 'QUARTERLY_KP' | 'POLICE_BLOTTER' | 'LGU_LOG'>('DAILY');
+  const [reportType, setReportType] = useState<'DAILY' | 'MONTHLY' | 'QUARTERLY_KP' | 'LGU_LOG'>('DAILY');
 
   const handleExportCsv = () => {
     let headers: string[] = [];
@@ -36,20 +36,8 @@ export const StandardReportsView: React.FC = () => {
         c.complainants.map((p) => p.name).join(', '),
         c.respondents.map((p) => p.name).join(', ')
       ]);
-    } else if (reportType === 'POLICE_BLOTTER') {
-      headers = ['Blotter / Case ID', 'Incident Date', 'Barangay', 'Offense / Title', 'Complainant', 'Respondent', 'Investigator', 'Outcome'];
-      rows = cases.filter((c) => c.isReferredToPolice || c.blotterEntryNo).map((c) => [
-        c.blotterEntryNo || c.id,
-        c.dateReported,
-        c.barangay,
-        c.title,
-        c.complainants.map((p) => p.name).join(', '),
-        c.respondents.map((p) => p.name).join(', '),
-        c.assignedPersonnel || 'N/A',
-        c.outcomeType || c.status
-      ]);
     } else {
-      headers = ['Barangay', 'Total Cases', 'Resolved', 'Pending', 'Police Referred', 'LGU Referred'];
+      headers = ['Barangay', 'Total Cases', 'Resolved', 'Pending', 'LGU Referred'];
       rows = ROXAS_BARANGAYS.map((bgy) => {
         const bCases = cases.filter((c) => c.barangay === bgy);
         return [
@@ -57,7 +45,6 @@ export const StandardReportsView: React.FC = () => {
           bCases.length,
           bCases.filter((c) => c.status === 'Resolved' || c.status === 'Closed').length,
           bCases.filter((c) => c.isPending || c.status === 'Pending').length,
-          bCases.filter((c) => c.isReferredToPolice).length,
           bCases.filter((c) => c.isReferredToLgu).length
         ];
       });
@@ -76,7 +63,7 @@ export const StandardReportsView: React.FC = () => {
             Standard Governance & Operational Reports
           </h2>
           <p className="text-xs text-slate-500 mt-0.5">
-            Routine administrative summaries for desk officers, Liga ng mga Barangay, Police Chief, and Mayor's Office.
+            Routine administrative summaries for desk officers, Liga ng mga Barangay, and Mayor's Office.
           </p>
         </div>
 
@@ -103,7 +90,6 @@ export const StandardReportsView: React.FC = () => {
         {[
           { id: 'DAILY', label: 'Daily Incident Blotter Report' },
           { id: 'QUARTERLY_KP', label: 'Quarterly Katarungang Pambarangay Compliance' },
-          { id: 'POLICE_BLOTTER', label: 'Police Station Referral & Inquest Register' },
           { id: 'MONTHLY', label: 'Monthly 16-Barangay Comparative Summary' }
         ].map((t) => (
           <button
@@ -173,7 +159,6 @@ export const StandardReportsView: React.FC = () => {
                     <th className="py-2.5 px-3">Total Disputes</th>
                     <th className="py-2.5 px-3">Amicably Settled</th>
                     <th className="py-2.5 px-3">Pending Lupon</th>
-                    <th className="py-2.5 px-3">Endorsed to PNP</th>
                     <th className="py-2.5 px-3">Settlement Rate</th>
                   </tr>
                 </thead>
@@ -182,7 +167,6 @@ export const StandardReportsView: React.FC = () => {
                     const bCases = cases.filter((c) => c.barangay === bgy);
                     const settled = bCases.filter((c) => c.status === 'Resolved' || c.status === 'Closed').length;
                     const pending = bCases.filter((c) => c.isPending || c.status === 'Pending').length;
-                    const police = bCases.filter((c) => c.isReferredToPolice).length;
                     const rate = bCases.length > 0 ? Math.round((settled / bCases.length) * 100) : 0;
 
                     return (
@@ -191,7 +175,6 @@ export const StandardReportsView: React.FC = () => {
                         <td className="py-2.5 px-3 font-mono">{bCases.length}</td>
                         <td className="py-2.5 px-3 font-mono text-emerald-700 font-bold">{settled}</td>
                         <td className="py-2.5 px-3 font-mono text-amber-700">{pending}</td>
-                        <td className="py-2.5 px-3 font-mono text-indigo-700">{police}</td>
                         <td className="py-2.5 px-3 font-bold text-blue-800">
                           {bCases.length > 0 ? `${rate}%` : '—'}
                         </td>
@@ -204,44 +187,6 @@ export const StandardReportsView: React.FC = () => {
           </div>
         )}
 
-        {reportType === 'POLICE_BLOTTER' && (
-          <div>
-            <h3 className="font-bold text-sm text-slate-900 mb-1">
-              Roxas Municipal Police Station Blotter & Inter-Agency Transmittals
-            </h3>
-            <p className="text-xs text-slate-500 mb-3">Referrals received from barangays for preliminary investigation</p>
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs divide-y divide-slate-200">
-                <thead className="bg-slate-50 text-slate-600 uppercase text-[10px]">
-                  <tr>
-                    <th className="py-2.5 px-3">Blotter No.</th>
-                    <th className="py-2.5 px-3">Case ID</th>
-                    <th className="py-2.5 px-3">Originating Brgy.</th>
-                    <th className="py-2.5 px-3">Offense / Subject</th>
-                    <th className="py-2.5 px-3">Investigator</th>
-                    <th className="py-2.5 px-3">Status</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100">
-                  {cases.filter((c) => c.isReferredToPolice || c.blotterEntryNo).map((c) => (
-                    <tr
-                      key={c.id}
-                      onClick={() => setSelectedCaseId(c.id)}
-                      className="hover:bg-slate-50 cursor-pointer"
-                    >
-                      <td className="py-2 px-3 font-mono font-bold text-slate-800">{c.blotterEntryNo || 'Unassigned'}</td>
-                      <td className="py-2 px-3 font-mono text-blue-700 font-bold">{c.id}</td>
-                      <td className="py-2 px-3">Brgy. {c.barangay}</td>
-                      <td className="py-2 px-3 font-medium text-slate-900">{c.title}</td>
-                      <td className="py-2 px-3 text-slate-600">{c.assignedPersonnel || 'Duty Investigator'}</td>
-                      <td className="py-2 px-3"><StatusBadge status={c.status} size="sm" /></td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        )}
 
         {reportType === 'MONTHLY' && (
           <div>

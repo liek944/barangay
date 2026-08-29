@@ -33,8 +33,7 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, size = 'md', i
         return 'bg-amber-100 text-amber-900 border-amber-300';
       case 'For DILG Monitoring':
         return 'bg-purple-100 text-purple-900 border-purple-300';
-      case 'Referred to Police Station':
-        return 'bg-indigo-100 text-indigo-900 border-indigo-300';
+
       case 'Referred to LGU':
         return 'bg-teal-100 text-teal-900 border-teal-300';
       case 'For Barangay Action':

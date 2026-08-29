@@ -35,7 +35,6 @@ export const BarangayDashboard: React.FC = () => {
   const totalIncidents = barangayCases.length;
   const resolvedCount = barangayCases.filter((c) => c.status === 'Resolved' || c.status === 'Closed').length;
   const pendingCount = barangayCases.filter((c) => c.isPending || c.status === 'Pending').length;
-  const referredToPolice = barangayCases.filter((c) => c.isReferredToPolice).length;
   const remainedAtBarangay = barangayCases.filter((c) => c.isRemainedAtBarangay).length;
   const officialComplaints = barangayCases.filter((c) => c.isInvolvingOfficial).length;
   const overdueCases = barangayCases.filter((c) => (c.isPending || c.status === 'Pending') && c.daysPending > 30);
@@ -69,7 +68,7 @@ export const BarangayDashboard: React.FC = () => {
             Barangay {currentBarangay} Public Safety & Dispute Management
           </h2>
           <p className="text-xs text-sky-100 mt-1 max-w-2xl">
-            Managing community complaints, Katarungang Pambarangay conciliation, police/LGU referrals, and official transparency monitoring in Roxas, Oriental Mindoro.
+            Managing community complaints, Katarungang Pambarangay conciliation, LGU referrals, and official transparency monitoring in Roxas, Oriental Mindoro.
           </p>
         </div>
 
@@ -131,14 +130,7 @@ export const BarangayDashboard: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-xs">
-          <p className="text-xs text-slate-500 uppercase font-bold tracking-tight">Referred to PNP</p>
-          <h3 className="text-3xl font-bold mt-1 text-blue-600">{referredToPolice}</h3>
-          <div className="flex items-center gap-2 mt-2 text-[10px] text-blue-600 font-bold">
-            <span>Criminal / Port</span>
-            <div className="h-px flex-1 bg-slate-100"></div>
-          </div>
-        </div>
+
 
         <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-xs">
           <p className="text-xs text-slate-500 uppercase font-bold tracking-tight">Brgy-Retained</p>
@@ -275,10 +267,7 @@ export const BarangayDashboard: React.FC = () => {
                 <span className="text-slate-600">Amicable Settlement Rate</span>
                 <span className="font-bold text-emerald-700">82%</span>
               </div>
-              <div className="flex justify-between items-center p-2 bg-slate-50 rounded">
-                <span className="text-slate-600">Cases Not Reached Police</span>
-                <span className="font-bold text-sky-700">{remainedAtBarangay} cases</span>
-              </div>
+
               <div className="flex justify-between items-center p-2 bg-slate-50 rounded">
                 <span className="text-slate-600">Avg Mediation Duration</span>
                 <span className="font-bold text-slate-800">8.4 days</span>

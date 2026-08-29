@@ -937,32 +937,7 @@ export const ResidentPortalView: React.FC<{ initialTab?: 'overview' | 'submit' |
                 </div>
               </div>
 
-              {/* Police Station Card */}
-              <div className="p-5 rounded-2xl bg-blue-50/60 border border-blue-200 space-y-3">
-                <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-xl bg-blue-700 text-white">
-                    <Shield className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h3 className="text-xs font-black text-blue-950">Roxas Municipal Police Station (PNP)</h3>
-                    <span className="text-[10px] text-blue-700 font-bold">24/7 Police Assistance Desk</span>
-                  </div>
-                </div>
-                <div className="space-y-1.5 text-xs text-slate-700 pt-1">
-                  <div className="flex items-center justify-between">
-                    <span className="text-slate-500">Emergency Hotline:</span>
-                    <strong className="text-rose-600 font-mono font-black">911 / 0998-598-5680</strong>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-slate-500">Desk Officer:</span>
-                    <strong className="text-slate-900 font-mono">(043) 289-2026</strong>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-slate-500">Location:</span>
-                    <strong className="text-slate-900">Poblacion, Roxas</strong>
-                  </div>
-                </div>
-              </div>
+
 
               {/* MDRRMO & Rescue Card */}
               <div className="p-5 rounded-2xl bg-amber-50/60 border border-amber-200 space-y-3">
@@ -1083,7 +1058,7 @@ export const ResidentPortalView: React.FC<{ initialTab?: 'overview' | 'submit' |
                 </div>
                 <h3 className="text-base font-black text-slate-900">Directory & Hotlines</h3>
                 <p className="text-xs text-slate-500 leading-relaxed">
-                  Access direct contacts for Barangay Tanod, PNP Roxas Station, MDRRMO Rescue, and VAWC Desk Officers for immediate help.
+                  Access direct contacts for Barangay Tanod, MDRRMO Rescue, and VAWC Desk Officers for immediate help.
                 </p>
               </div>
 

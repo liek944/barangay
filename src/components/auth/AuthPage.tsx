@@ -462,7 +462,7 @@ export const AuthPage: React.FC = () => {
                       </label>
                       <input
                         type="text"
-                        placeholder="e.g., Punong Barangay or Police Desk Officer"
+                        placeholder="e.g., Punong Barangay or Secretary"
                         value={regPosition}
                         onChange={(e) => setRegPosition(e.target.value)}
                         className="w-full px-3 py-2 bg-white border border-emerald-200 rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
@@ -505,7 +505,7 @@ export const AuthPage: React.FC = () => {
                       </label>
                       <input
                         type="text"
-                        placeholder="e.g., PB-SM-2026 / PNP-8891"
+                        placeholder="e.g., PB-SM-2026 / SEC-8891"
                         value={regBadge}
                         onChange={(e) => setRegBadge(e.target.value)}
                         className="w-full px-3 py-2 bg-white border border-emerald-200 rounded-xl text-xs text-slate-900 font-mono placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"

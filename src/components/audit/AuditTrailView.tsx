@@ -115,7 +115,7 @@ export const AuditTrailView: React.FC = () => {
           >
             <option value="ALL">All Agencies</option>
             <option value="Barangay">Barangay</option>
-            <option value="Police">Police</option>
+
             <option value="Municipal">LGU / Municipal</option>
             <option value="DILG">DILG</option>
           </select>

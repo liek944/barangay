@@ -81,7 +81,7 @@ export const NewCaseModal: React.FC = () => {
   const [witnessName, setWitnessName] = useState('');
 
   // Routing
-  const [routingType, setRoutingType] = useState<'BARANGAY' | 'POLICE' | 'LGU'>('BARANGAY');
+  const [routingType, setRoutingType] = useState<'BARANGAY' | 'LGU'>('BARANGAY');
 
   if (!isNewCaseModalOpen) return null;
 
@@ -158,7 +158,6 @@ export const NewCaseModal: React.FC = () => {
       });
     }
 
-    const isReferredToPolice = routingType === 'POLICE';
     const isReferredToLgu = routingType === 'LGU';
     const isRemainedAtBarangay = routingType === 'BARANGAY';
     let initialStatus: CaseStatus = 'Unresolved';
@@ -196,7 +195,6 @@ export const NewCaseModal: React.FC = () => {
       officialInvolvedAgency: isRespondentOfficial ? officialAgency : undefined,
       officialInvolvedType: isRespondentOfficial ? 'Local Government Personnel' : undefined,
       isRemainedAtBarangay,
-      isReferredToPolice,
       isReferredToLgu
     });
 
@@ -770,17 +768,7 @@ export const NewCaseModal: React.FC = () => {
                   <span>LGU Traffic & Transport Division</span>
                 </label>
 
-                <label className={`p-2.5 rounded-xl border cursor-pointer flex items-center space-x-2 text-xs transition ${
-                  routingType === 'POLICE' ? 'bg-blue-50 border-blue-500 font-bold text-blue-900 shadow-2xs' : 'bg-white border-slate-200 text-slate-700'
-                }`}>
-                  <input
-                    type="radio"
-                    name="routing"
-                    checked={routingType === 'POLICE'}
-                    onChange={() => setRoutingType('POLICE')}
-                  />
-                  <span>Police Traffic Investigation</span>
-                </label>
+
 
 
               </div>

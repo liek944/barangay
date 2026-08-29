@@ -144,7 +144,6 @@ export const GeospatialGraphMap: React.FC<GeospatialGraphMapProps> = ({
 
     // 1. Place Agency Hubs
     MUNICIPAL_AGENCY_HUBS.forEach((hub) => {
-      if (hub.type === 'POLICE') geoMap.set('AGENCY-POLICE', { lat: hub.lat, lng: hub.lng });
       if (hub.type === 'LGU') geoMap.set('AGENCY-LGU', { lat: hub.lat, lng: hub.lng });
       if (hub.type === 'DILG') geoMap.set('AGENCY-DILG', { lat: hub.lat, lng: hub.lng });
     });
@@ -502,9 +501,9 @@ export const GeospatialGraphMap: React.FC<GeospatialGraphMapProps> = ({
         let markerSize = 28;
 
         if (node.type === 'agency') {
-          markerSize = node.id === 'AGENCY-POLICE' ? 40 : 36;
-          const bg = node.id === 'AGENCY-POLICE' ? '#1e40af' : node.id === 'AGENCY-LGU' ? '#047857' : node.id === 'AGENCY-DILG' ? '#b45309' : '#0284c7';
-          const iconText = node.id === 'AGENCY-POLICE' ? '🛡️' : node.id === 'AGENCY-LGU' ? '🏛️' : node.id === 'AGENCY-DILG' ? '⚖️' : '🏢';
+          markerSize = 36;
+          const bg = node.id === 'AGENCY-LGU' ? '#047857' : node.id === 'AGENCY-DILG' ? '#b45309' : '#0284c7';
+          const iconText = node.id === 'AGENCY-LGU' ? '🏛️' : node.id === 'AGENCY-DILG' ? '⚖️' : '🏢';
           iconHtml = `
             <div style="
               width: ${markerSize}px;
@@ -517,9 +516,8 @@ export const GeospatialGraphMap: React.FC<GeospatialGraphMapProps> = ({
               align-items: center;
               justify-content: center;
               color: white;
-              font-size: ${node.id === 'AGENCY-POLICE' ? '18px' : '15px'};
+              font-size: 15px;
               font-weight: bold;
-              ${node.id === 'AGENCY-POLICE' ? 'box-shadow: 0 0 0 3px rgba(30,64,175,0.4), 0 6px 16px rgba(0,0,0,0.35);' : ''}
               ${isSelected || isInPath ? 'transform: scale(1.25); box-shadow: 0 0 0 5px #fbbf24, 0 8px 20px rgba(0,0,0,0.5);' : ''}
             ">
               ${iconText}
@@ -769,22 +767,6 @@ export const GeospatialGraphMap: React.FC<GeospatialGraphMapProps> = ({
             <option value="agency">Agency Hubs</option>
           </select>
 
-          {/* Focus Police Station Button */}
-          <button
-            onClick={() => {
-              const policeNode = graphData.nodes.find((n) => n.id === 'AGENCY-POLICE');
-              if (policeNode) {
-                setSelectedNode(policeNode);
-                setSelectedCluster(null);
-                mapInstanceRef.current?.flyTo([12.5919, 121.5189], 17, { duration: 1 });
-              }
-            }}
-            className="px-2.5 py-1.5 rounded-lg font-semibold flex items-center gap-1.5 bg-blue-50 hover:bg-blue-100 text-blue-900 border border-blue-200 transition"
-            title="Focus Roxas Municipal Police Station on Map"
-          >
-            <Shield className="w-3.5 h-3.5 text-blue-700" />
-            <span>Police Station</span>
-          </button>
 
           {/* Toggle Relational Edges */}
           <button
@@ -945,7 +927,7 @@ export const GeospatialGraphMap: React.FC<GeospatialGraphMapProps> = ({
               <span className="w-2.5 h-2.5 rounded-full bg-teal-600" /> Barangay Administrative Center
             </div>
             <div className="flex items-center gap-2 font-medium">
-              <span className="w-2.5 h-2.5 rounded-full bg-indigo-700" /> Municipal Agency Hub (PNP / LGU / DILG)
+              <span className="w-2.5 h-2.5 rounded-full bg-indigo-700" /> Municipal Agency Hub (LGU / DILG)
             </div>
           </div>
         </div>
@@ -1022,113 +1004,8 @@ export const GeospatialGraphMap: React.FC<GeospatialGraphMapProps> = ({
                 </div>
               </div>
 
-              {/* Dedicated Police Station Profile */}
-              {selectedNode.id === 'AGENCY-POLICE' ? (
-                <div className="space-y-3 pt-1">
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-xs space-y-2">
-                    <div className="flex items-center gap-1.5 font-bold text-blue-950">
-                      <Shield className="w-4 h-4 text-blue-700" />
-                      <span>Roxas Municipal Police Station (PNP)</span>
-                    </div>
-
-                    <div className="text-[11px] text-blue-900 space-y-1">
-                      <div className="flex items-start gap-1">
-                        <MapPin className="w-3.5 h-3.5 text-blue-600 mt-0.5 shrink-0" />
-                        <span><strong>Location:</strong> Morente Avenue (Road 454), Camp Gozar (beside Roxas Fire Station & across Roxas Gymnasium), Roxas, Oriental Mindoro (GPS: 12.5919° N, 121.5189° E)</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <User className="w-3.5 h-3.5 text-blue-600 shrink-0" />
-                        <span><strong>Station Commander:</strong> PMAJ Rommel Castro (Chief of Police)</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Radio className="w-3.5 h-3.5 text-blue-600 shrink-0" />
-                        <span><strong>Hotlines:</strong> 0998-598-6084 • (043) 289-2041 • 911</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Road Distance & Response Matrix to all 5 Barangays */}
-                  <div className="bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs space-y-2">
-                    <div className="font-bold text-slate-800 flex items-center justify-between">
-                      <span className="flex items-center gap-1">
-                        <Route className="w-3.5 h-3.5 text-emerald-600" />
-                        Patrol Distance from Station:
-                      </span>
-                      <span className="text-[10px] text-slate-500 font-normal">Via Nautical Hwy</span>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-1.5 text-[11px]">
-                      {SYSTEM_BARANGAYS_GEO.map((b) => (
-                        <div
-                          key={b.name}
-                          onClick={() => {
-                            const bNode = graphData.nodes.find(n => n.id === `BGY-${b.name.replace(/\s+/g, '')}`);
-                            if (bNode) {
-                              setStartNodeId('AGENCY-POLICE');
-                              setEndNodeId(bNode.id);
-                              setPathfindingMode(true);
-                              mapInstanceRef.current?.flyTo([b.lat, b.lng], 15, { duration: 1 });
-                            }
-                          }}
-                          className="p-1.5 bg-white rounded border border-slate-200 hover:border-blue-300 hover:bg-blue-50/50 cursor-pointer transition flex flex-col justify-between"
-                        >
-                          <span className="font-semibold text-slate-800">Brgy. {b.name}</span>
-                          <span className="text-[10px] text-blue-700 font-mono font-bold">
-                            {selectedNode.metadata.distancesToBarangays?.[b.name] || 'Nautical Hwy'}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Statutory Lupon vs Police Rule */}
-                  <div className="bg-amber-50 border border-amber-200 rounded-lg p-2.5 text-[11px] text-amber-900 leading-snug">
-                    <strong>Jurisdiction Protocol:</strong> Katarungang Pambarangay (RA 7160) requires mandatory Lupon conciliation for community disputes. Cases are escalated to Roxas MPS for criminal offenses (penalties &gt; 1 yr imprisonment / &gt; ₱5,000 fine, weapons used, or issued Certificate to File Action).
-                  </div>
-                </div>
-              ) : null}
-
-              {/* Case-specific Police Distance & Escalation Status */}
               {selectedNode.rawCase && (
                 <div className="pt-1 space-y-2">
-                  <div className="bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-xs space-y-1">
-                    <div className="font-semibold text-slate-800 flex items-center justify-between">
-                      <span className="flex items-center gap-1">
-                        <Shield className="w-3.5 h-3.5 text-blue-600" />
-                        Police Station Relation:
-                      </span>
-                      <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
-                        selectedNode.rawCase.isReferredToPolice
-                          ? 'bg-blue-100 text-blue-800'
-                          : 'bg-emerald-100 text-emerald-800'
-                      }`}>
-                        {selectedNode.rawCase.isReferredToPolice ? 'Referred to PNP Blotter' : 'Handled at Barangay Lupon'}
-                      </span>
-                    </div>
-
-                    <p className="text-[11px] text-slate-600">
-                      {selectedNode.rawCase.isReferredToPolice
-                        ? `Blotter Entry / Case: ${selectedNode.rawCase.policeCaseNo || selectedNode.rawCase.blotterEntryNo || 'Under Investigation'} (Roxas MPS)`
-                        : `Distance to Roxas Police Station: ~${
-                            selectedNode.rawCase.barangay === 'San Aquilino' ? '3.8 km (8 mins)' :
-                            selectedNode.rawCase.barangay === 'Odiong' ? '2.1 km (5 mins)' :
-                            selectedNode.rawCase.barangay === 'Victoria' ? '4.5 km (10 mins)' :
-                            selectedNode.rawCase.barangay === 'San Miguel' ? '5.2 km (11 mins)' : '0.4 km (2 mins)'
-                          }`}
-                    </p>
-
-                    <button
-                      onClick={() => {
-                        setStartNodeId(selectedNode.id);
-                        setEndNodeId('AGENCY-POLICE');
-                        setPathfindingMode(true);
-                      }}
-                      className="text-[10px] text-blue-700 hover:text-blue-900 font-bold flex items-center gap-1 mt-1 cursor-pointer"
-                    >
-                      <Route className="w-3 h-3" /> Trace Route to Roxas Police Station
-                    </button>
-                  </div>
-
                   <button
                     onClick={() => setSelectedCaseId(selectedNode.rawCase!.id)}
                     className="w-full py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer shadow-xs transition"

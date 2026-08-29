@@ -257,7 +257,7 @@ export const EmergencyAccidentAlarmModal: React.FC = () => {
             </div>
             <div className="flex items-center gap-2 text-[11px]">
               <span className="px-2 py-0.5 bg-white border border-blue-200 rounded font-mono font-bold text-blue-800">
-                PNP Roxas: 0998-598-5712
+                LGU Roxas: 0998-598-5712
               </span>
               <span className="px-2 py-0.5 bg-white border border-rose-200 rounded font-mono font-bold text-rose-800">
                 RHU Ambulance: 0917-888-2628

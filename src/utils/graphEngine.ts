@@ -191,31 +191,21 @@ export function buildGraphFromCases(
     // Handling Officer / Official
     if (c.assignedPersonnel) {
       const officerId = `OFFICIAL-${c.assignedPersonnel.replace(/\s+/g, '')}`;
-      const isPoliceOfficer = c.assignedPersonnel.includes('PMAJ') || 
-                              c.assignedPersonnel.includes('PSSg') || 
-                              c.assignedPersonnel.includes('Police') || 
-                              c.currentHandlingAgency?.includes('Police') || 
-                              c.currentHandlingAgency?.includes('PNP');
-
       addNode({
         id: officerId,
         label: c.assignedPersonnel,
         type: 'official',
-        subType: isPoliceOfficer ? 'Police Officer' : 'Assigned Officer',
+        subType: 'Assigned Officer',
         group: 'Official',
-        color: isPoliceOfficer ? '#1e40af' : '#059669', // Deep Blue for police officers, emerald for barangay officials
+        color: '#059669', // emerald for barangay officials
         radius: 16,
         metadata: {
-          role: isPoliceOfficer ? 'Law Enforcement Officer' : 'Assigned Officer',
+          role: 'Assigned Officer',
           barangay: c.barangay,
-          agency: c.currentHandlingAgency || (isPoliceOfficer ? 'Roxas Municipal Police Station (PNP)' : 'Barangay Official')
+          agency: c.currentHandlingAgency || 'Barangay Official'
         }
       });
-      addEdge(officerId, caseNodeId, isPoliceOfficer ? 'INVESTIGATING_OFFICER' : 'ASSIGNED_TO', 'INVOLVES_OFFICIAL');
-
-      if (isPoliceOfficer) {
-        addEdge(officerId, 'AGENCY-POLICE', 'STATIONED_AT', 'INVOLVED_IN');
-      }
+      addEdge(officerId, caseNodeId, 'ASSIGNED_TO', 'INVOLVES_OFFICIAL');
     }
 
 

@@ -313,7 +313,7 @@ export const CreateAccountModal: React.FC = () => {
               <input
                 id="input-account-badge"
                 type="text"
-                placeholder="e.g. PB-LIB-2026 / PNP-8891"
+                placeholder="e.g. PB-LIB-2026 / SEC-8891"
                 value={badgeOrIdNumber}
                 onChange={(e) => setBadgeOrIdNumber(e.target.value)}
                 className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3.5 py-2 text-xs text-slate-800 placeholder-slate-400 font-mono focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"

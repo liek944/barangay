@@ -31,7 +31,7 @@ export const TransparencyDashboard: React.FC = () => {
             Cross-Agency Governance & Case Performance Transparency
           </h2>
           <p className="text-xs text-slate-300 mt-1 max-w-2xl">
-            Controlled transparency metrics aggregated across Barangay Local Governments, Roxas Municipal Police Station, Municipal LGU, and DILG Roxas.
+            Controlled transparency metrics aggregated across Barangay Local Governments, Municipal LGU, and DILG Roxas.
           </p>
         </div>
 
