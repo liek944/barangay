@@ -92,7 +92,7 @@ export const AuthPage: React.FC = () => {
       case 'RESIDENT':
         return { bg: 'bg-emerald-50 text-emerald-800 border-emerald-300', icon: UserPlus, label: 'Resident Citizen' };
       case 'BARANGAY':
-        return { bg: 'bg-sky-50 text-sky-700 border-sky-200', icon: Building2, label: 'Barangay LGU' };
+        return { bg: 'bg-sky-50 text-sky-700 border-sky-200', icon: Building2, label: 'Barangay Official' };
       case 'LGU':
         return { bg: 'bg-emerald-50 text-emerald-700 border-emerald-200', icon: Landmark, label: 'Municipal LGU (Admin)' };
       case 'ADMIN':
@@ -401,7 +401,7 @@ export const AuthPage: React.FC = () => {
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                       {[
                         { type: 'RESIDENT' as AgencyType, label: 'Resident Citizen', icon: UserPlus },
-                        { type: 'BARANGAY' as AgencyType, label: 'Barangay LGU', icon: Building2 },
+                        { type: 'BARANGAY' as AgencyType, label: 'Barangay Official', icon: Building2 },
                         { type: 'LGU' as AgencyType, label: 'Municipal LGU (Admin)', icon: Landmark },
                         { type: 'ADMIN' as AgencyType, label: 'System Admin', icon: Settings },
                       ].map((ag) => {

@@ -239,7 +239,7 @@ export const CreateAccountModal: React.FC = () => {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
               {[
                 { type: 'RESIDENT' as AgencyType, label: 'Resident Citizen', icon: UserPlus, color: 'hover:border-emerald-500' },
-                { type: 'BARANGAY' as AgencyType, label: 'Barangay LGU', icon: Building2, color: 'hover:border-sky-500' },
+                { type: 'BARANGAY' as AgencyType, label: 'Barangay Official', icon: Building2, color: 'hover:border-sky-500' },
                 { type: 'LGU' as AgencyType, label: 'Municipal LGU (Admin)', icon: Landmark, color: 'hover:border-emerald-500' },
                 { type: 'ADMIN' as AgencyType, label: 'System Admin', icon: Settings, color: 'hover:border-purple-500' },
               ].map((ag) => {

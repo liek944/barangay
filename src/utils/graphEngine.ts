@@ -53,14 +53,14 @@ export function buildGraphFromCases(
   // Add major agencies as structural anchor nodes
   addNode({
     id: 'AGENCY-BARANGAY',
-    label: 'Barangay LGUs & Lupon',
+    label: 'Barangay Officials & Lupon',
     subLabel: 'Katarungang Pambarangay Conciliation Hub',
     type: 'agency',
     group: 'Agency',
     color: '#0284c7', // Sky blue
     radius: 22,
     metadata: {
-      agency: 'Barangay LGUs & Lupon Tagapamayapa',
+      agency: 'Barangay Officials & Lupon Tagapamayapa',
       jurisdiction: 'Community First-Level Amicable Settlement',
       statutoryBasis: 'Local Government Code (RA 7160 Chapter 7)'
     }
@@ -208,7 +208,7 @@ export function buildGraphFromCases(
         metadata: {
           role: isPoliceOfficer ? 'Law Enforcement Officer' : 'Assigned Officer',
           barangay: c.barangay,
-          agency: c.currentHandlingAgency || (isPoliceOfficer ? 'Roxas Municipal Police Station (PNP)' : 'Barangay LGU')
+          agency: c.currentHandlingAgency || (isPoliceOfficer ? 'Roxas Municipal Police Station (PNP)' : 'Barangay Official')
         }
       });
       addEdge(officerId, caseNodeId, isPoliceOfficer ? 'INVESTIGATING_OFFICER' : 'ASSIGNED_TO', 'INVOLVES_OFFICIAL');

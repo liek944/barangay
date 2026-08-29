@@ -223,7 +223,7 @@ export const EditAccountModal: React.FC<EditAccountModalProps> = ({
             </label>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {[
-                { type: 'BARANGAY' as AgencyType, label: 'Barangay LGU', icon: Building2, defaultRole: 'BARANGAY_OFFICIAL' as UserRole },
+                { type: 'BARANGAY' as AgencyType, label: 'Barangay Official', icon: Building2, defaultRole: 'BARANGAY_OFFICIAL' as UserRole },
                 { type: 'RESIDENT' as AgencyType, label: 'Resident Citizen', icon: UserCheck, defaultRole: 'RESIDENT' as UserRole },
                 { type: 'LGU' as AgencyType, label: 'Municipal LGU (Admin)', icon: Landmark, defaultRole: 'LGU_ADMINISTRATOR' as UserRole },
                 { type: 'ADMIN' as AgencyType, label: 'System Admin', icon: UserCheck, defaultRole: 'SYSTEM_ADMIN' as UserRole },
