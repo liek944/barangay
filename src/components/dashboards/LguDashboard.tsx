@@ -43,7 +43,7 @@ export const LguDashboard: React.FC = () => {
             Municipal Government Case & Public Service Dashboard
           </h2>
           <p className="text-xs text-emerald-100 mt-1 max-w-2xl">
-            Coordinating municipal departments (MENRO, Market Operations, Municipal Legal, Engineering, MSWDO) across the 16 Barangays of Roxas, Oriental Mindoro.
+            Coordinating municipal departments (MENRO, Market Operations, Municipal Legal, Engineering, MSWDO) across the 5 Barangays of Roxas, Oriental Mindoro.
           </p>
         </div>
 
@@ -64,7 +64,7 @@ export const LguDashboard: React.FC = () => {
           <p className="text-xs text-slate-500 uppercase font-bold tracking-tight">Municipality Total</p>
           <h3 className="text-3xl font-bold mt-1 text-slate-900">{totalCases}</h3>
           <div className="flex items-center gap-2 mt-2 text-[10px] text-slate-500 font-bold">
-            <span>Across 16 Barangays</span>
+            <span>Across 5 Barangays</span>
             <div className="h-px flex-1 bg-slate-100"></div>
           </div>
         </div>
@@ -158,11 +158,11 @@ export const LguDashboard: React.FC = () => {
           </div>
         </div>
 
-        {/* Right Col: 16 Barangays Distribution */}
+        {/* Right Col: 5 Barangays Distribution */}
         <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-4">
           <h3 className="font-bold text-sm text-slate-800 mb-2 flex items-center gap-1.5">
             <MapPin className="w-4 h-4 text-emerald-700" />
-            16 Barangays Incident Distribution
+            5 Barangays Incident Distribution
           </h3>
           <p className="text-xs text-slate-500 mb-3">Case load across Roxas, Oriental Mindoro</p>
 

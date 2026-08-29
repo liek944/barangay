@@ -41,7 +41,7 @@ export const PoliceDashboard: React.FC = () => {
             Police Blotter & Inter-Agency Criminal Investigation Gateway
           </h2>
           <p className="text-xs text-blue-200 mt-1 max-w-2xl">
-            Managing cases referred from the 16 Barangays of Roxas, preliminary investigation tracking, medico-legal requirements, and prosecutor endorsements.
+            Managing cases referred from the 5 Barangays of Roxas, preliminary investigation tracking, medico-legal requirements, and prosecutor endorsements.
           </p>
         </div>
 
