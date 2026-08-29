@@ -387,12 +387,11 @@ export const AuthPage: React.FC = () => {
                     <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
                       1. Agency / Department <span className="text-rose-500">*</span>
                     </label>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                       {[
                         { type: 'RESIDENT' as AgencyType, label: 'Resident Citizen', icon: UserPlus },
                         { type: 'BARANGAY' as AgencyType, label: 'Barangay Official', icon: Building2 },
                         { type: 'LGU' as AgencyType, label: 'Municipal LGU (Admin)', icon: Landmark },
-                        { type: 'ADMIN' as AgencyType, label: 'System Admin', icon: Settings },
                       ].map((ag) => {
                         const Icon = ag.icon;
                         const isSelected = regAgencyType === ag.type;
