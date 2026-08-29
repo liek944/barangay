@@ -40,7 +40,6 @@ export interface User {
   position: string;
   badgeOrIdNumber?: string;
   email: string;
-  avatarUrl?: string;
   passcode?: string;
   phone?: string;
   address?: string;

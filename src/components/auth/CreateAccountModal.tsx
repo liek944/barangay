@@ -20,18 +20,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { useUI } from '../../hooks/useUI';
 import { AgencyType, UserRole, ROXAS_BARANGAYS, User } from '../../types';
 
-interface PresetAvatar {
-  id: string;
-  label: string;
-  url: string;
-}
 
-const PRESET_AVATARS: PresetAvatar[] = [
-  { id: 'av1', label: 'Official 1', url: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80' },
-  { id: 'av2', label: 'Official 2', url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80' },
-  { id: 'av4', label: 'Admin 1', url: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&auto=format&fit=crop&q=80' },
-  { id: 'av6', label: 'LGU 2', url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80' },
-];
 
 const POSITION_SUGGESTIONS: Record<AgencyType, string[]> = {
   RESIDENT: [
@@ -79,7 +68,7 @@ export const CreateAccountModal: React.FC = () => {
   const [confirmPasscode, setConfirmPasscode] = useState('jarinyes');
   const [showPasscode, setShowPasscode] = useState(false);
   const [showConfirmPasscode, setShowConfirmPasscode] = useState(false);
-  const [selectedAvatar, setSelectedAvatar] = useState(PRESET_AVATARS[0].url);
+
   const [error, setError] = useState<string | null>(null);
 
   if (!isCreateAccountModalOpen) return null;
@@ -166,7 +155,7 @@ export const CreateAccountModal: React.FC = () => {
       badgeOrIdNumber: badgeOrIdNumber.trim() || `EMP-${Math.floor(1000 + Math.random() * 9000)}`,
       email: cleanEmail,
       passcode: passcode.trim(),
-      avatarUrl: selectedAvatar
+
     };
 
     try {
@@ -473,36 +462,7 @@ export const CreateAccountModal: React.FC = () => {
             </div>
           </div>
 
-          {/* 7. Avatar Selector */}
-          <div className="space-y-2">
-            <label className="block text-xs font-bold text-slate-700">
-              Profile Photo / Official Avatar
-            </label>
-            <div className="flex items-center gap-3">
-              {PRESET_AVATARS.map((av) => (
-                <button
-                  key={av.id}
-                  type="button"
-                  id={`avatar-choice-${av.id}`}
-                  onClick={() => setSelectedAvatar(av.url)}
-                  className={`relative rounded-full p-0.5 transition cursor-pointer ${
-                    selectedAvatar === av.url ? 'ring-3 ring-blue-600 ring-offset-2' : 'opacity-70 hover:opacity-100'
-                  }`}
-                >
-                  <img
-                    src={av.url}
-                    alt={av.label}
-                    className="w-9 h-9 rounded-full object-cover border border-slate-200"
-                  />
-                  {selectedAvatar === av.url && (
-                    <span className="absolute -bottom-1 -right-1 w-4 h-4 bg-blue-600 text-white rounded-full flex items-center justify-center text-[10px]">
-                      ✓
-                    </span>
-                  )}
-                </button>
-              ))}
-            </div>
-          </div>
+
         </form>
 
         {/* Footer Actions */}

@@ -39,8 +39,7 @@ async function migrateUsers() {
         agencyName: user.agencyName,
         barangay: user.barangay,
         position: user.position,
-        badgeOrIdNumber: user.badgeOrIdNumber,
-        avatarUrl: user.avatarUrl
+        badgeOrIdNumber: user.badgeOrIdNumber
       }
     });
 
@@ -86,8 +85,7 @@ async function migrateUsers() {
       badgeOrIdNumber: user.badgeOrIdNumber,
       email: user.email,
       phone: user.phone,
-      address: user.address,
-      avatarUrl: user.avatarUrl
+      address: user.address
     });
 
     if (profileError) {

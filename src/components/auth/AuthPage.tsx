@@ -16,18 +16,7 @@ import {
 import { useAuth } from '../../hooks/useAuth';
 import { AgencyType, UserRole, ROXAS_BARANGAYS, User as UserType } from '../../types';
 
-interface PresetAvatar {
-  id: string;
-  label: string;
-  url: string;
-}
 
-const PRESET_AVATARS: PresetAvatar[] = [
-  { id: 'av1', label: 'Official 1', url: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80' },
-  { id: 'av2', label: 'Official 2', url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80' },
-  { id: 'av4', label: 'Admin 1', url: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&auto=format&fit=crop&q=80' },
-  { id: 'av6', label: 'LGU 2', url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80' },
-];
 
 const POSITION_SUGGESTIONS: Record<AgencyType, string[]> = {
   RESIDENT: [
@@ -84,7 +73,7 @@ export const AuthPage: React.FC = () => {
   const [regConfirmPasscode, setRegConfirmPasscode] = useState('jarinyes');
   const [showRegPassword, setShowRegPassword] = useState(false);
   const [showRegConfirmPassword, setShowRegConfirmPassword] = useState(false);
-  const [regAvatar, setRegAvatar] = useState(PRESET_AVATARS[0].url);
+
   const [regError, setRegError] = useState<string | null>(null);
 
   const getAgencyBadge = (agency: AgencyType) => {
@@ -198,7 +187,7 @@ export const AuthPage: React.FC = () => {
       badgeOrIdNumber: regBadge.trim() || `EMP-${Math.floor(1000 + Math.random() * 9000)}`,
       email: cleanEmail,
       passcode: regPasscode.trim(),
-      avatarUrl: regAvatar
+
     };
 
     try {
@@ -583,26 +572,7 @@ export const AuthPage: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* 5. Avatar Selection */}
-                  <div className="space-y-1.5 pt-1">
-                    <label className="block text-xs font-bold text-slate-700">
-                      Select Official Avatar:
-                    </label>
-                    <div className="flex items-center gap-2">
-                      {PRESET_AVATARS.map((av) => (
-                        <button
-                          key={av.id}
-                          type="button"
-                          onClick={() => setRegAvatar(av.url)}
-                          className={`p-0.5 rounded-full border-2 transition cursor-pointer ${
-                            regAvatar === av.url ? 'border-emerald-600 ring-2 ring-emerald-400/50' : 'border-transparent opacity-60 hover:opacity-100'
-                          }`}
-                        >
-                          <img src={av.url} alt={av.label} className="w-8 h-8 rounded-full object-cover" />
-                        </button>
-                      ))}
-                    </div>
-                  </div>
+
 
                   <button
                     id="btn-submit-register"

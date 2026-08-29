@@ -203,13 +203,9 @@ export const SystemAdminView: React.FC = () => {
                     <tr key={u.id} className={`hover:bg-slate-50 transition ${isActive ? 'bg-blue-50/50' : ''}`}>
                       <td className="py-2.5 px-3 font-mono font-bold text-blue-700">{u.id}</td>
                       <td className="py-2.5 px-3 font-semibold text-slate-900 flex items-center gap-2">
-                        {u.avatarUrl ? (
-                          <img src={u.avatarUrl} alt="" className="w-6 h-6 rounded-full object-cover border border-slate-200" />
-                        ) : (
-                          <div className="w-6 h-6 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center font-bold text-[10px]">
-                            {u.name.charAt(0)}
-                          </div>
-                        )}
+                        <div className="w-6 h-6 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center font-bold text-[10px]">
+                          {u.name.charAt(0)}
+                        </div>
                         <span>{u.name}</span>
                       </td>
                       <td className="py-2.5 px-3 text-slate-700">{u.position}</td>

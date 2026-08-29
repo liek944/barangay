@@ -23,18 +23,7 @@ interface EditAccountModalProps {
   userToEdit?: User | null;
 }
 
-interface PresetAvatar {
-  id: string;
-  label: string;
-  url: string;
-}
 
-const PRESET_AVATARS: PresetAvatar[] = [
-  { id: 'av1', label: 'Official 1', url: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80' },
-  { id: 'av2', label: 'Official 2', url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80' },
-  { id: 'av4', label: 'Admin 1', url: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&auto=format&fit=crop&q=80' },
-  { id: 'av6', label: 'Staff 2', url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80' },
-];
 
 const POSITION_SUGGESTIONS: Record<AgencyType, string[]> = {
   RESIDENT: [
@@ -81,7 +70,7 @@ export const EditAccountModal: React.FC<EditAccountModalProps> = ({
   const [barangay, setBarangay] = useState('San Miguel');
   const [email, setEmail] = useState('');
   const [badgeOrIdNumber, setBadgeOrIdNumber] = useState('');
-  const [avatarUrl, setAvatarUrl] = useState('');
+
   const [role, setRole] = useState<UserRole>('BARANGAY_OFFICIAL');
   const [passcode, setPasscode] = useState('');
   const [confirmPasscode, setConfirmPasscode] = useState('');
@@ -98,7 +87,7 @@ export const EditAccountModal: React.FC<EditAccountModalProps> = ({
       setBarangay(targetUser.barangay || 'San Miguel');
       setEmail(targetUser.email || '');
       setBadgeOrIdNumber(targetUser.badgeOrIdNumber || '');
-      setAvatarUrl(targetUser.avatarUrl || PRESET_AVATARS[0].url);
+
       setRole(targetUser.role || 'BARANGAY_OFFICIAL');
       setPasscode(targetUser.passcode || 'jarinyes');
       setConfirmPasscode(targetUser.passcode || 'jarinyes');
@@ -150,7 +139,7 @@ export const EditAccountModal: React.FC<EditAccountModalProps> = ({
       barangay: agencyType === 'BARANGAY' ? barangay : undefined,
       email: email.trim() || `${name.toLowerCase().replace(/[^a-z0-9]/g, '')}@roxas.gov.ph`,
       badgeOrIdNumber: badgeOrIdNumber.trim() || undefined,
-      avatarUrl: avatarUrl || PRESET_AVATARS[0].url,
+
       role,
       passcode: passcode.trim() || targetUser.passcode || 'jarinyes'
     });
@@ -186,7 +175,7 @@ export const EditAccountModal: React.FC<EditAccountModalProps> = ({
                 </span>
               </h3>
               <p className="text-xs text-emerald-200/80 mt-0.5">
-                Update account display name, designation, agency, and profile avatar
+                Update account display name, designation, and agency
               </p>
             </div>
           </div>
@@ -423,35 +412,7 @@ export const EditAccountModal: React.FC<EditAccountModalProps> = ({
             </div>
           </div>
 
-          {/* 5. Avatar Selection */}
-          <div className="space-y-1.5">
-            <label className="block text-xs font-bold text-slate-700">
-              Profile Avatar:
-            </label>
-            <div className="flex items-center gap-2 flex-wrap">
-              {PRESET_AVATARS.map((av) => (
-                <button
-                  key={av.id}
-                  type="button"
-                  onClick={() => setAvatarUrl(av.url)}
-                  className={`relative rounded-full p-0.5 transition cursor-pointer ${
-                    avatarUrl === av.url ? 'ring-3 ring-emerald-600 scale-105' : 'opacity-70 hover:opacity-100'
-                  }`}
-                >
-                  <img
-                    src={av.url}
-                    alt={av.label}
-                    className="w-9 h-9 rounded-full object-cover border border-slate-300"
-                  />
-                  {avatarUrl === av.url && (
-                    <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-emerald-600 rounded-full border border-white flex items-center justify-center text-white">
-                      <CheckCircle2 className="w-2.5 h-2.5" />
-                    </div>
-                  )}
-                </button>
-              ))}
-            </div>
-          </div>
+
 
           {/* Action buttons */}
           <div className="pt-4 border-t border-slate-100 flex items-center justify-end gap-2">
