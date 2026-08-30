@@ -76,7 +76,7 @@ export const Header: React.FC<{ onToggleSidebar?: () => void }> = () => {
       switch (tab) {
         case 'submit_report': return 'Incident & Photo Submission Form';
         case 'my_reports': return 'My Reports & Real-Time Status Tracker';
-        case 'barangay_directory': return 'Barangay & Emergency Hotline Directory';
+
         default: return `Resident Citizen Portal • Brgy. ${currentUser.barangay || 'San Aquilino'}`;
       }
     }
@@ -85,7 +85,7 @@ export const Header: React.FC<{ onToggleSidebar?: () => void }> = () => {
       case 'resident_portal': return 'Resident Citizen Reporting Portal';
       case 'submit_report': return 'Citizen Incident Report & Evidence Submission';
       case 'my_reports': return 'Citizen Reports & Resolution Tracker';
-      case 'barangay_directory': return 'Barangay & Public Emergency Directory';
+
       case 'dashboard': return 'Multi-Agency Operational Dashboard';
       case 'cases': return 'Incident & Complaint Ledger';
       case 'graph': return 'Inter-Agency Case Relationship Graph';

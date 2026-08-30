@@ -45,13 +45,13 @@ import { StatusBadge, PriorityBadge } from '../common/StatusBadge';
 
 
 
-export const ResidentPortalView: React.FC<{ initialTab?: 'overview' | 'submit' | 'my_reports' | 'directory' }> = ({ initialTab = 'overview' }) => {
+export const ResidentPortalView: React.FC<{ initialTab?: 'overview' | 'submit' | 'my_reports' }> = ({ initialTab = 'overview' }) => {
   const { currentUser } = useAuth();
   const { cases, createCase, setSelectedCaseId } = useCases();
   const { triggerNotification } = useNotifications();
   const { setActiveTab } = useUI();
 
-  const [portalTab, setPortalTab] = useState<'overview' | 'submit' | 'my_reports' | 'directory'>(initialTab);
+  const [portalTab, setPortalTab] = useState<'overview' | 'submit' | 'my_reports'>(initialTab);
   
   // Incident submission form state - Vehicular Accidents
   const [reportTitle, setReportTitle] = useState('');
@@ -292,22 +292,6 @@ export const ResidentPortalView: React.FC<{ initialTab?: 'overview' | 'submit' |
             >
               <Clock className="w-4 h-4" />
               <span>My Reports ({myReports.length})</span>
-            </button>
-
-            <button
-              id="btn-nav-directory"
-              onClick={() => {
-                setPortalTab('directory');
-                setSubmittedSuccessCaseId(null);
-              }}
-              className={`px-4 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition cursor-pointer border ${
-                portalTab === 'directory'
-                  ? 'bg-white text-emerald-950 border-white'
-                  : 'bg-emerald-900/60 hover:bg-emerald-900 border-emerald-700/60 text-emerald-100'
-              }`}
-            >
-              <Phone className="w-4 h-4" />
-              <span>Hotlines & Directory</span>
             </button>
           </div>
         </div>
@@ -895,108 +879,7 @@ export const ResidentPortalView: React.FC<{ initialTab?: 'overview' | 'submit' |
         </div>
       )}
 
-      {/* ----------------- TAB 3: BARANGAY DIRECTORY & HOTLINES ----------------- */}
-      {portalTab === 'directory' && (
-        <div className="space-y-6">
-          <div className="bg-white border border-emerald-100 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
-            <div className="border-b border-slate-100 pb-4">
-              <h2 className="text-lg font-black text-slate-900 flex items-center gap-2">
-                <Phone className="w-5 h-5 text-emerald-600" />
-                <span>Barangay & Public Emergency Authority Directory</span>
-              </h2>
-              <p className="text-xs text-slate-500 mt-0.5">
-                Official contact numbers and duty desks across the Municipality of Roxas, Oriental Mindoro for prompt public service.
-              </p>
-            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {/* Barangay Hall Card */}
-              <div className="p-5 rounded-2xl bg-emerald-50/60 border border-emerald-200 space-y-3">
-                <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-xl bg-emerald-600 text-white">
-                    <Building2 className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h3 className="text-xs font-black text-emerald-950">Barangay {currentUser.barangay || 'San Aquilino'} Hall</h3>
-                    <span className="text-[10px] text-emerald-700 font-bold">Punong Barangay & Lupon Tagapamayapa</span>
-                  </div>
-                </div>
-                <div className="space-y-1.5 text-xs text-slate-700 pt-1">
-                  <div className="flex items-center justify-between">
-                    <span className="text-slate-500">Barangay Captain Desk:</span>
-                    <strong className="text-slate-900 font-mono">0917-888-{(currentUser.barangay || 'SAQ').substring(0, 3).toUpperCase()}</strong>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-slate-500">Barangay Tanod Emergency:</span>
-                    <strong className="text-rose-600 font-mono font-bold">0920-555-{(currentUser.barangay || '1234').substring(0, 4)}</strong>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-slate-500">Office Hours:</span>
-                    <strong className="text-slate-900">Mon - Fri (8:00 AM - 5:00 PM)</strong>
-                  </div>
-                </div>
-              </div>
-
-
-
-              {/* MDRRMO & Rescue Card */}
-              <div className="p-5 rounded-2xl bg-amber-50/60 border border-amber-200 space-y-3">
-                <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-xl bg-amber-600 text-white">
-                    <AlertTriangle className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h3 className="text-xs font-black text-amber-950">MDRRMO & Rescue Operations</h3>
-                    <span className="text-[10px] text-amber-700 font-bold">Ambulance & Disaster Response</span>
-                  </div>
-                </div>
-                <div className="space-y-1.5 text-xs text-slate-700 pt-1">
-                  <div className="flex items-center justify-between">
-                    <span className="text-slate-500">Disaster Hotline:</span>
-                    <strong className="text-slate-900 font-mono">0917-700-MDRRMO</strong>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-slate-500">BFP Fire Station:</span>
-                    <strong className="text-slate-900 font-mono">0919-444-FIRE</strong>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-slate-500">Status:</span>
-                    <strong className="text-emerald-700 font-bold">24/7 Standby Alert</strong>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Katarungang Pambarangay Guide */}
-            <div className="p-6 rounded-3xl bg-slate-50 border border-slate-200 space-y-4">
-              <h3 className="text-xs font-black text-slate-900 flex items-center gap-2">
-                <HelpCircle className="w-4 h-4 text-emerald-600" />
-                <span>Katarungang Pambarangay Flow (How Barangay Mediation Works)</span>
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-slate-700">
-                <div className="p-3 bg-white rounded-xl border border-slate-200 space-y-1">
-                  <strong className="text-emerald-800 block font-bold">1. Summons & Invitation</strong>
-                  <p className="text-[11px] text-slate-600 leading-relaxed">
-                    Upon receipt of the complaint, the Punong Barangay issues formal summons to both parties within 3 days for initial mediation.
-                  </p>
-                </div>
-                <div className="p-3 bg-white rounded-xl border border-slate-200 space-y-1">
-                  <strong className="text-emerald-800 block font-bold">2. Pangkat Conciliation</strong>
-                  <p className="text-[11px] text-slate-600 leading-relaxed">
-                    If unmediated before the Punong Barangay, a 3-member Pangkat Tagapagkasundo is constituted for in-depth conciliation (up to 15 days).
-                  </p>
-                </div>
-                <div className="p-3 bg-white rounded-xl border border-slate-200 space-y-1">
-                  <strong className="text-emerald-800 block font-bold">3. Amicable Settlement / CFA</strong>
-                  <p className="text-[11px] text-slate-600 leading-relaxed">
-                    If settled, an Amicable Settlement agreement is executed. If unresolved, a Certificate to File Action (CFA) is issued for court or prosecution referral.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* ----------------- TAB 0: OVERVIEW PORTAL HUB ----------------- */}
       {portalTab === 'overview' && (
@@ -1046,28 +929,6 @@ export const ResidentPortalView: React.FC<{ initialTab?: 'overview' | 'submit' |
                 className="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 cursor-pointer shadow-xs"
               >
                 <span>View My Reports ({myReports.length})</span>
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
-
-            {/* Quick Action Card 3: Directory & Contacts */}
-            <div className="p-6 rounded-3xl bg-white border border-amber-200 hover:border-amber-400 transition shadow-sm space-y-4 flex flex-col justify-between">
-              <div className="space-y-2">
-                <div className="p-3 w-12 h-12 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center">
-                  <Phone className="w-6 h-6" />
-                </div>
-                <h3 className="text-base font-black text-slate-900">Directory & Hotlines</h3>
-                <p className="text-xs text-slate-500 leading-relaxed">
-                  Access direct contacts for Barangay Tanod, MDRRMO Rescue, and VAWC Desk Officers for immediate help.
-                </p>
-              </div>
-
-              <button
-                type="button"
-                onClick={() => setPortalTab('directory')}
-                className="w-full py-2.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 cursor-pointer shadow-xs"
-              >
-                <span>Open Directory</span>
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>

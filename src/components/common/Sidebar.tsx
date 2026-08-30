@@ -73,12 +73,6 @@ export const Sidebar: React.FC = () => {
           icon: <Clock className="w-4 h-4" />,
           badge: myReports.length > 0 ? myReports.length : undefined,
           badgeColor: 'bg-emerald-500 text-white'
-        },
-        {
-          id: 'barangay_directory',
-          label: 'Directory & Hotlines',
-          subtitle: 'Tanod, Lupon, MDRRMO',
-          icon: <Compass className="w-4 h-4" />
         }
       ];
     }

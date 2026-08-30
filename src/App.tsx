@@ -46,9 +46,7 @@ const AppContent: React.FC = () => {
       if (activeTab === 'my_reports') {
         return <ResidentPortalView initialTab="my_reports" />;
       }
-      if (activeTab === 'barangay_directory') {
-        return <ResidentPortalView initialTab="directory" />;
-      }
+
       if (activeTab === 'cases') {
         return <CaseList />;
       }
@@ -62,8 +60,7 @@ const AppContent: React.FC = () => {
         return <ResidentPortalView initialTab="submit" />;
       case 'my_reports':
         return <ResidentPortalView initialTab="my_reports" />;
-      case 'barangay_directory':
-        return <ResidentPortalView initialTab="directory" />;
+
       case 'dashboard':
         switch (currentUser.agencyType) {
           case 'BARANGAY':
