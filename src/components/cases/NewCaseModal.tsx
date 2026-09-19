@@ -32,7 +32,7 @@ export const NewCaseModal: React.FC = () => {
   const { createCase } = useCases();
   const { isNewCaseModalOpen, setIsNewCaseModalOpen } = useUI();
 
-  const isBarangayOfficer = currentUser?.agencyType === 'BARANGAY' && !!currentUser?.barangay;
+  const isBarangayOfficer = currentUser?.agencyType === 'MDRRMO' && !!currentUser?.barangay;
 
   // Form State - Accident Core
   const [title, setTitle] = useState('');
@@ -81,7 +81,7 @@ export const NewCaseModal: React.FC = () => {
   const [witnessName, setWitnessName] = useState('');
 
   // Routing
-  const [routingType, setRoutingType] = useState<'BARANGAY' | 'LGU'>('BARANGAY');
+  const [routingType, setRoutingType] = useState<'MDRRMO' | 'LGU'>('MDRRMO');
 
   if (!isNewCaseModalOpen) return null;
 
@@ -159,7 +159,7 @@ export const NewCaseModal: React.FC = () => {
     }
 
     const isReferredToLgu = routingType === 'LGU';
-    const isRemainedAtBarangay = routingType === 'BARANGAY';
+    const isRemainedAtBarangay = routingType === 'MDRRMO';
     let initialStatus: CaseStatus = 'Unresolved';
 
     createCase({
@@ -745,15 +745,15 @@ export const NewCaseModal: React.FC = () => {
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
                 <label className={`p-2.5 rounded-xl border cursor-pointer flex items-center space-x-2 text-xs transition ${
-                  routingType === 'BARANGAY' ? 'bg-sky-50 border-sky-500 font-bold text-sky-900 shadow-2xs' : 'bg-white border-slate-200 text-slate-700'
+                  routingType === 'MDRRMO' ? 'bg-orange-50 border-orange-500 font-bold text-orange-900 shadow-2xs' : 'bg-white border-slate-200 text-slate-700'
                 }`}>
                   <input
                     type="radio"
                     name="routing"
-                    checked={routingType === 'BARANGAY'}
-                    onChange={() => setRoutingType('BARANGAY')}
+                    checked={routingType === 'MDRRMO'}
+                    onChange={() => setRoutingType('MDRRMO')}
                   />
-                  <span>Barangay Traffic Desk (KP Conciliation)</span>
+                  <span>MDRRMO Emergency Desk (Rescue Operations)</span>
                 </label>
 
                 <label className={`p-2.5 rounded-xl border cursor-pointer flex items-center space-x-2 text-xs transition ${

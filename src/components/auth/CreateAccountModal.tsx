@@ -3,6 +3,7 @@ import {
   X, 
   UserPlus, 
   Shield, 
+  ShieldAlert,
   Building2, 
   Landmark, 
   CheckCircle2, 
@@ -29,14 +30,13 @@ const POSITION_SUGGESTIONS: Record<AgencyType, string[]> = {
     'Barangay Youth Resident (SK)',
     'Community Representative'
   ],
-  BARANGAY: [
-    'Punong Barangay / Lupon Chairman',
-    'Barangay Secretary',
-    'Barangay Kagawad / Peace & Order Chair',
-    'Barangay Treasurer',
-    'Lupon Tagapamayapa Member',
-    'VAWC Desk Officer',
-    'Chief Barangay Tanod'
+  MDRRMO: [
+    'MDRRMO Operations Head / Admin',
+    'Emergency Medical Responder (EMR)',
+    'Rescue Ambulance Unit Lead',
+    'Traffic Crash Incident Investigator',
+    'Quick Response Team (QRT) Leader',
+    'MDRRMO Emergency Dispatcher'
   ],
   LGU: [
     'Municipal Administrator (LGU Admin)',
@@ -58,11 +58,11 @@ export const CreateAccountModal: React.FC = () => {
   const { isCreateAccountModalOpen, setIsCreateAccountModalOpen } = useUI();
 
   const [name, setName] = useState('');
-  const [agencyType, setAgencyType] = useState<AgencyType>('BARANGAY');
+  const [agencyType, setAgencyType] = useState<AgencyType>('MDRRMO');
   const [barangay, setBarangay] = useState<string>(ROXAS_BARANGAYS[0]);
-  const [position, setPosition] = useState('Punong Barangay / Lupon Chairman');
-  const [role, setRole] = useState<UserRole>('BARANGAY_ADMIN');
-  const [badgeOrIdNumber, setBadgeOrIdNumber] = useState('');
+  const [position, setPosition] = useState('MDRRMO Operations Head / Admin');
+  const [role, setRole] = useState<UserRole>('MDRRMO_ADMIN');
+  const [badgeOrIdNumber, setBadgeOrIdNumber] = useState('MDRRMO-ROX-2026');
   const [email, setEmail] = useState('');
   const [passcode, setPasscode] = useState('jarinyes');
   const [confirmPasscode, setConfirmPasscode] = useState('jarinyes');
@@ -84,9 +84,9 @@ export const CreateAccountModal: React.FC = () => {
         setRole('RESIDENT');
         setBadgeOrIdNumber(`RES-${(barangay || 'SAQ').slice(0, 3).toUpperCase()}-${Math.floor(1000 + Math.random() * 9000)}`);
         break;
-      case 'BARANGAY':
-        setRole('BARANGAY_ADMIN');
-        setBadgeOrIdNumber(`PB-${(barangay || 'SM').slice(0, 3).toUpperCase()}-2026`);
+      case 'MDRRMO':
+        setRole('MDRRMO_ADMIN');
+        setBadgeOrIdNumber(`MDRRMO-ROX-${Math.floor(100 + Math.random() * 900)}`);
         break;
       case 'LGU':
         setRole('LGU_ADMINISTRATOR');
@@ -103,8 +103,8 @@ export const CreateAccountModal: React.FC = () => {
     switch (agencyType) {
       case 'RESIDENT':
         return `Barangay ${barangay} Resident Citizen`;
-      case 'BARANGAY':
-        return `Barangay ${barangay} LGU`;
+      case 'MDRRMO':
+        return 'MDRRMO Roxas Emergency & Rescue Operations';
       case 'LGU':
         return 'Municipal Government of Roxas (LGU Admin)';
       case 'ADMIN':
@@ -143,14 +143,14 @@ export const CreateAccountModal: React.FC = () => {
       return;
     }
 
-    const cleanEmail = email.trim() || `${name.toLowerCase().replace(/[^a-z0-9]/g, '.')}@${agencyType === 'BARANGAY' ? `${barangay.toLowerCase()}.` : ''}roxas.gov.ph`;
+    const cleanEmail = email.trim() || `${name.toLowerCase().replace(/[^a-z0-9]/g, '.')}@${agencyType === 'MDRRMO' ? 'mdrrmo.' : ''}roxas.gov.ph`;
 
     const newUserPayload: Omit<User, 'id'> & { passcode: string } = {
       name: name.trim(),
       role,
       agencyType,
       agencyName: getAgencyName(),
-      barangay: agencyType === 'BARANGAY' ? barangay : undefined,
+      barangay: agencyType === 'RESIDENT' ? barangay : undefined,
       position: position.trim(),
       badgeOrIdNumber: badgeOrIdNumber.trim() || `EMP-${Math.floor(1000 + Math.random() * 9000)}`,
       email: cleanEmail,
@@ -228,7 +228,7 @@ export const CreateAccountModal: React.FC = () => {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
               {[
                 { type: 'RESIDENT' as AgencyType, label: 'Resident Citizen', icon: UserPlus, color: 'hover:border-emerald-500' },
-                { type: 'BARANGAY' as AgencyType, label: 'Barangay Official', icon: Building2, color: 'hover:border-sky-500' },
+                { type: 'MDRRMO' as AgencyType, label: 'MDRRMO (Emergency Ops)', icon: ShieldAlert, color: 'hover:border-orange-500' },
                 { type: 'LGU' as AgencyType, label: 'Municipal LGU (Admin)', icon: Landmark, color: 'hover:border-emerald-500' },
                 { type: 'ADMIN' as AgencyType, label: 'System Admin', icon: Settings, color: 'hover:border-purple-500' },
               ].map((ag) => {
@@ -259,23 +259,19 @@ export const CreateAccountModal: React.FC = () => {
             </div>
           </div>
 
-          {/* 2. Barangay Scope (Conditional) */}
-          {(agencyType === 'BARANGAY' || agencyType === 'RESIDENT') && (
+          {/* 2. Barangay Scope for Resident Citizens */}
+          {agencyType === 'RESIDENT' && (
             <div className="p-3.5 bg-emerald-50/60 border border-emerald-200 rounded-xl space-y-2">
               <label className="block text-xs font-bold text-emerald-950 flex items-center gap-1.5">
                 <Building2 className="w-4 h-4 text-emerald-700" />
-                {agencyType === 'RESIDENT' ? 'Tinitirahang Barangay sa Roxas (Home Barangay)' : 'Select Barangay Assignment (5 Barangays of Roxas)'} <span className="text-rose-500">*</span>
+                Tinitirahang Barangay sa Roxas (Home Barangay) <span className="text-rose-500">*</span>
               </label>
               <select
                 id="select-account-barangay"
                 value={barangay}
                 onChange={(e) => {
                   setBarangay(e.target.value);
-                  if (agencyType === 'RESIDENT') {
-                    setBadgeOrIdNumber(`RES-${e.target.value.slice(0, 3).toUpperCase()}-${Math.floor(1000 + Math.random() * 9000)}`);
-                  } else {
-                    setBadgeOrIdNumber(`PB-${e.target.value.slice(0, 3).toUpperCase()}-2026`);
-                  }
+                  setBadgeOrIdNumber(`RES-${e.target.value.slice(0, 3).toUpperCase()}-${Math.floor(1000 + Math.random() * 9000)}`);
                 }}
                 className="w-full bg-white border border-emerald-300 rounded-lg px-3 py-2 text-xs font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               >
@@ -363,10 +359,10 @@ export const CreateAccountModal: React.FC = () => {
                 onChange={(e) => setRole(e.target.value as UserRole)}
                 className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs font-mono font-semibold text-purple-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
-                {agencyType === 'BARANGAY' && (
+                {agencyType === 'MDRRMO' && (
                   <>
-                    <option value="BARANGAY_ADMIN">BARANGAY_ADMIN (Punong Barangay / PB)</option>
-                    <option value="BARANGAY_OFFICIAL">BARANGAY_OFFICIAL (Kagawad / Secretary / Lupon)</option>
+                    <option value="MDRRMO_ADMIN">MDRRMO_ADMIN (Operations Head / Dispatch Chief)</option>
+                    <option value="MDRRMO_OFFICER">MDRRMO_OFFICER (Responder / Investigator / EMR)</option>
                   </>
                 )}
                 {agencyType === 'RESIDENT' && (

@@ -1,9 +1,9 @@
-export type AgencyType = 'BARANGAY' | 'LGU' | 'ADMIN' | 'RESIDENT';
+export type AgencyType = 'MDRRMO' | 'LGU' | 'ADMIN' | 'RESIDENT';
 
 export type UserRole = 
   | 'RESIDENT'
-  | 'BARANGAY_ADMIN' 
-  | 'BARANGAY_OFFICIAL' 
+  | 'MDRRMO_ADMIN' 
+  | 'MDRRMO_OFFICER' 
   | 'LGU_OFFICER' 
   | 'LGU_ADMINISTRATOR' 
   | 'SYSTEM_ADMIN';
@@ -345,11 +345,11 @@ export const ROXAS_BARANGAYS = [
 
 export const AGENCIES_LIST = [
   { 
-    id: 'BARANGAY_OFFICES', 
-    name: 'Barangay Local Government Units (5 Barangays of Roxas)', 
-    type: 'BARANGAY',
-    description: 'First-line community intake, Katarungang Pambarangay conciliation, accident alarms, and local peace & order.',
-    jurisdictionScope: '5 Component Barangays (Bagumbayan, Odiong, San Aquilino, San Miguel, Victoria)'
+    id: 'MDRRMO_OPERATIONS', 
+    name: 'Municipal Disaster Risk Reduction & Management Office (MDRRMO Roxas)', 
+    type: 'MDRRMO',
+    description: 'Emergency rescue dispatch, vehicular accident response, emergency medical evacuation, and public safety oversight.',
+    jurisdictionScope: 'Municipality of Roxas (All 5 Barangays)'
   },
   { 
     id: 'RESIDENT_COMMUNITY', 

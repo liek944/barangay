@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { 
   Bell, 
   Shield, 
+  ShieldAlert,
   UserCheck, 
   Building2, 
   Landmark, 
@@ -47,8 +48,8 @@ export const Header: React.FC<{ onToggleSidebar?: () => void }> = () => {
     switch (agency) {
       case 'RESIDENT':
         return 'bg-emerald-600 text-white';
-      case 'BARANGAY':
-        return 'bg-sky-600 text-white';
+      case 'MDRRMO':
+        return 'bg-orange-600 text-white';
       case 'LGU':
         return 'bg-emerald-700 text-white';
       case 'ADMIN':
@@ -62,8 +63,8 @@ export const Header: React.FC<{ onToggleSidebar?: () => void }> = () => {
     switch (agency) {
       case 'RESIDENT':
         return <UserCheck className="w-4 h-4" />;
-      case 'BARANGAY':
-        return <Building2 className="w-4 h-4" />;
+      case 'MDRRMO':
+        return <ShieldAlert className="w-4 h-4" />;
       case 'LGU':
         return <Landmark className="w-4 h-4" />;
       default:

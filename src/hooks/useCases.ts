@@ -153,8 +153,8 @@ export const useCases = () => {
       triggerNotification(
         `🚨 VEHICULAR ACCIDENT ALERT: Brgy. ${newCaseItem.barangay}`,
         `URGENT ALARM: Road/vehicular accident reported at ${newCaseItem.specificLocation}. Resident report #${caseId}. Immediate Tanod & First Responder deployment requested!`,
-        'case_registered', caseId, 'BARANGAY', 'urgent',
-        { targetAgencyTypes: ['BARANGAY'], targetBarangay: newCaseItem.barangay }
+        'case_registered', caseId, 'MDRRMO', 'urgent',
+        { targetAgencyTypes: ['MDRRMO'], targetBarangay: newCaseItem.barangay }
       );
     }
 
@@ -170,8 +170,8 @@ export const useCases = () => {
         triggerNotification(
           `New Resident Report in Brgy. ${newCaseItem.barangay}`,
           `Resident submitted Case #${caseId}: "${newCaseItem.title}". Queued for Lupon review.`,
-          'case_registered', caseId, 'BARANGAY', newCaseItem.priority === 'Urgent' ? 'urgent' : 'normal',
-          { targetAgencyTypes: ['BARANGAY'], targetBarangay: newCaseItem.barangay }
+          'case_registered', caseId, 'MDRRMO', newCaseItem.priority === 'Urgent' ? 'urgent' : 'normal',
+          { targetAgencyTypes: ['MDRRMO'], targetBarangay: newCaseItem.barangay }
         );
       }
     } else {
@@ -180,7 +180,7 @@ export const useCases = () => {
           `New Incident Docketed: #${caseId}`,
           `${currentUser.agencyName} registered Case #${caseId}: "${newCaseItem.title}"`,
           'system', caseId, currentUser.agencyName, newCaseItem.priority === 'Urgent' ? 'urgent' : 'normal',
-          { targetAgencyTypes: currentUser.agencyType === 'BARANGAY' ? ['BARANGAY', 'ADMIN'] : ['ADMIN', currentUser.agencyType], targetBarangay: newCaseItem.barangay }
+          { targetAgencyTypes: currentUser.agencyType === 'MDRRMO' ? ['MDRRMO', 'ADMIN'] : ['ADMIN', currentUser.agencyType], targetBarangay: newCaseItem.barangay }
         );
       }
     }

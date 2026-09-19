@@ -3,6 +3,7 @@ import {
   X, 
   UserCheck, 
   Shield, 
+  ShieldAlert,
   Building2, 
   Landmark, 
   CheckCircle2, 
@@ -32,14 +33,13 @@ const POSITION_SUGGESTIONS: Record<AgencyType, string[]> = {
     'Barangay Youth Resident (SK)',
     'Community Representative'
   ],
-  BARANGAY: [
-    'Punong Barangay / Lupon Chairman',
-    'Barangay Secretary',
-    'Barangay Kagawad / Peace & Order Chair',
-    'Barangay Treasurer',
-    'Lupon Tagapamayapa Member',
-    'VAWC Desk Officer',
-    'Chief Barangay Tanod'
+  MDRRMO: [
+    'MDRRMO Operations Head / Admin',
+    'Emergency Medical Responder (EMR)',
+    'Rescue Ambulance Unit Lead',
+    'Traffic Crash Incident Investigator',
+    'Quick Response Team (QRT) Leader',
+    'MDRRMO Emergency Dispatcher'
   ],
   LGU: [
     'Municipal Administrator (LGU Admin)',
@@ -66,12 +66,12 @@ export const EditAccountModal: React.FC<EditAccountModalProps> = ({
 
   const [name, setName] = useState('');
   const [position, setPosition] = useState('');
-  const [agencyType, setAgencyType] = useState<AgencyType>('BARANGAY');
+  const [agencyType, setAgencyType] = useState<AgencyType>('MDRRMO');
   const [barangay, setBarangay] = useState('San Miguel');
   const [email, setEmail] = useState('');
   const [badgeOrIdNumber, setBadgeOrIdNumber] = useState('');
 
-  const [role, setRole] = useState<UserRole>('BARANGAY_OFFICIAL');
+  const [role, setRole] = useState<UserRole>('MDRRMO_OFFICER');
   const [passcode, setPasscode] = useState('');
   const [confirmPasscode, setConfirmPasscode] = useState('');
   const [showPasscode, setShowPasscode] = useState(false);
@@ -83,12 +83,12 @@ export const EditAccountModal: React.FC<EditAccountModalProps> = ({
     if (targetUser && isOpen) {
       setName(targetUser.name || '');
       setPosition(targetUser.position || '');
-      setAgencyType(targetUser.agencyType || 'BARANGAY');
+      setAgencyType(targetUser.agencyType || 'MDRRMO');
       setBarangay(targetUser.barangay || 'San Miguel');
       setEmail(targetUser.email || '');
       setBadgeOrIdNumber(targetUser.badgeOrIdNumber || '');
 
-      setRole(targetUser.role || 'BARANGAY_OFFICIAL');
+      setRole(targetUser.role || 'MDRRMO_OFFICER');
       setPasscode(targetUser.passcode || 'jarinyes');
       setConfirmPasscode(targetUser.passcode || 'jarinyes');
       setError(null);
@@ -123,8 +123,8 @@ export const EditAccountModal: React.FC<EditAccountModalProps> = ({
     }
 
     let resolvedAgencyName = targetUser.agencyName;
-    if (agencyType === 'BARANGAY') {
-      resolvedAgencyName = `Barangay ${barangay} LGU`;
+    if (agencyType === 'MDRRMO') {
+      resolvedAgencyName = 'MDRRMO Roxas Emergency & Rescue Operations';
     } else if (agencyType === 'LGU') {
       resolvedAgencyName = 'Municipal Government of Roxas (LGU Admin)';
     } else if (agencyType === 'ADMIN') {
@@ -136,7 +136,7 @@ export const EditAccountModal: React.FC<EditAccountModalProps> = ({
       position: position.trim(),
       agencyType,
       agencyName: resolvedAgencyName,
-      barangay: agencyType === 'BARANGAY' ? barangay : undefined,
+      barangay: agencyType === 'RESIDENT' ? barangay : undefined,
       email: email.trim() || `${name.toLowerCase().replace(/[^a-z0-9]/g, '')}@roxas.gov.ph`,
       badgeOrIdNumber: badgeOrIdNumber.trim() || undefined,
 
@@ -212,7 +212,7 @@ export const EditAccountModal: React.FC<EditAccountModalProps> = ({
             </label>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {[
-                { type: 'BARANGAY' as AgencyType, label: 'Barangay Official', icon: Building2, defaultRole: 'BARANGAY_OFFICIAL' as UserRole },
+                { type: 'MDRRMO' as AgencyType, label: 'MDRRMO (Emergency Ops)', icon: ShieldAlert, defaultRole: 'MDRRMO_OFFICER' as UserRole },
                 { type: 'RESIDENT' as AgencyType, label: 'Resident Citizen', icon: UserCheck, defaultRole: 'RESIDENT' as UserRole },
                 { type: 'LGU' as AgencyType, label: 'Municipal LGU (Admin)', icon: Landmark, defaultRole: 'LGU_ADMINISTRATOR' as UserRole },
                 { type: 'ADMIN' as AgencyType, label: 'System Admin', icon: UserCheck, defaultRole: 'SYSTEM_ADMIN' as UserRole },
@@ -245,11 +245,11 @@ export const EditAccountModal: React.FC<EditAccountModalProps> = ({
             </div>
           </div>
 
-          {/* Barangay selector if BARANGAY is chosen */}
-          {agencyType === 'BARANGAY' && (
+          {/* Barangay selector if RESIDENT is chosen */}
+          {agencyType === 'RESIDENT' && (
             <div className="space-y-1 bg-emerald-50/60 p-3 rounded-2xl border border-emerald-200">
               <label className="block text-xs font-bold text-emerald-900">
-                Select Barangay in Roxas:
+                Home Barangay sa Roxas:
               </label>
               <select
                 value={barangay}

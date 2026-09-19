@@ -5,7 +5,7 @@ import { useUI } from './hooks/useUI';
 import { AuthPage } from './components/auth/AuthPage';
 import { Header } from './components/common/Header';
 import { Sidebar } from './components/common/Sidebar';
-import { BarangayDashboard } from './components/dashboards/BarangayDashboard';
+import { MdrrmoDashboard } from './components/dashboards/MdrrmoDashboard';
 import { LguDashboard } from './components/dashboards/LguDashboard';
 
 import { TransparencyDashboard } from './components/dashboards/TransparencyDashboard';
@@ -63,8 +63,8 @@ const AppContent: React.FC = () => {
 
       case 'dashboard':
         switch (currentUser.agencyType) {
-          case 'BARANGAY':
-            return <BarangayDashboard />;
+          case 'MDRRMO':
+            return <MdrrmoDashboard />;
           case 'LGU':
             return <LguDashboard />;
 
@@ -73,7 +73,7 @@ const AppContent: React.FC = () => {
           case 'RESIDENT':
             return <ResidentPortalView initialTab="overview" />;
           default:
-            return <BarangayDashboard />;
+            return <MdrrmoDashboard />;
         }
       case 'cases':
         return <CaseList />;

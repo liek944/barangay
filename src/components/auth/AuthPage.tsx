@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { 
   Shield, 
+  ShieldAlert,
   Building2, 
   Landmark, 
   CheckCircle2, 
@@ -25,14 +26,13 @@ const POSITION_SUGGESTIONS: Record<AgencyType, string[]> = {
     'Barangay Youth Resident (SK)',
     'Community Representative'
   ],
-  BARANGAY: [
-    'Punong Barangay / Lupon Chairman',
-    'Barangay Secretary',
-    'Barangay Kagawad / Peace & Order Chair',
-    'Barangay Treasurer',
-    'Lupon Tagapamayapa Member',
-    'VAWC Desk Officer',
-    'Chief Barangay Tanod'
+  MDRRMO: [
+    'MDRRMO Operations Head / Admin',
+    'Emergency Medical Responder (EMR)',
+    'Rescue Ambulance Unit Lead',
+    'Traffic Crash Incident Investigator',
+    'Quick Response Team (QRT) Leader',
+    'MDRRMO Emergency Dispatcher'
   ],
   LGU: [
     'Municipal Administrator (LGU Admin)',
@@ -63,11 +63,11 @@ export const AuthPage: React.FC = () => {
 
   // Register Form States
   const [regName, setRegName] = useState('');
-  const [regAgencyType, setRegAgencyType] = useState<AgencyType>('BARANGAY');
+  const [regAgencyType, setRegAgencyType] = useState<AgencyType>('MDRRMO');
   const [regBarangay, setRegBarangay] = useState<string>(ROXAS_BARANGAYS[0]);
-  const [regPosition, setRegPosition] = useState('Punong Barangay / Lupon Chairman');
-  const [regRole, setRegRole] = useState<UserRole>('BARANGAY_ADMIN');
-  const [regBadge, setRegBadge] = useState('PB-SM-2026');
+  const [regPosition, setRegPosition] = useState('MDRRMO Operations Head / Admin');
+  const [regRole, setRegRole] = useState<UserRole>('MDRRMO_ADMIN');
+  const [regBadge, setRegBadge] = useState('MDRRMO-ROX-2026');
   const [regEmail, setRegEmail] = useState('');
   const [regPasscode, setRegPasscode] = useState('jarinyes');
   const [regConfirmPasscode, setRegConfirmPasscode] = useState('jarinyes');
@@ -80,8 +80,8 @@ export const AuthPage: React.FC = () => {
     switch (agency) {
       case 'RESIDENT':
         return { bg: 'bg-emerald-50 text-emerald-800 border-emerald-300', icon: UserPlus, label: 'Resident Citizen' };
-      case 'BARANGAY':
-        return { bg: 'bg-sky-50 text-sky-700 border-sky-200', icon: Building2, label: 'Barangay Official' };
+      case 'MDRRMO':
+        return { bg: 'bg-orange-50 text-orange-700 border-orange-200', icon: ShieldAlert, label: 'MDRRMO (Emergency Ops)' };
       case 'LGU':
         return { bg: 'bg-emerald-50 text-emerald-700 border-emerald-200', icon: Landmark, label: 'Municipal LGU (Admin)' };
       case 'ADMIN':
@@ -101,9 +101,9 @@ export const AuthPage: React.FC = () => {
         setRegRole('RESIDENT');
         setRegBadge(`RES-${(regBarangay || 'SAQ').slice(0, 3).toUpperCase()}-${Math.floor(1000 + Math.random() * 9000)}`);
         break;
-      case 'BARANGAY':
-        setRegRole('BARANGAY_ADMIN');
-        setRegBadge(`PB-${(regBarangay || 'SM').slice(0, 3).toUpperCase()}-2026`);
+      case 'MDRRMO':
+        setRegRole('MDRRMO_ADMIN');
+        setRegBadge(`MDRRMO-ROX-${Math.floor(100 + Math.random() * 900)}`);
         break;
       case 'LGU':
         setRegRole('LGU_ADMINISTRATOR');
@@ -120,8 +120,8 @@ export const AuthPage: React.FC = () => {
     switch (regAgencyType) {
       case 'RESIDENT':
         return `Barangay ${regBarangay} Resident Citizen`;
-      case 'BARANGAY':
-        return `Barangay ${regBarangay} LGU`;
+      case 'MDRRMO':
+        return 'MDRRMO Roxas Emergency & Rescue Operations';
       case 'LGU':
         return 'Municipal Government of Roxas (LGU Admin)';
       case 'ADMIN':
@@ -175,14 +175,14 @@ export const AuthPage: React.FC = () => {
       return;
     }
 
-    const cleanEmail = regEmail.trim() || `${regName.toLowerCase().replace(/[^a-z0-9]/g, '.')}@${regAgencyType === 'BARANGAY' ? `${regBarangay.toLowerCase()}.` : ''}roxas.gov.ph`;
+    const cleanEmail = regEmail.trim() || `${regName.toLowerCase().replace(/[^a-z0-9]/g, '.')}@${regAgencyType === 'MDRRMO' ? 'mdrrmo.' : ''}roxas.gov.ph`;
 
     const newUserPayload: Omit<UserType, 'id'> & { passcode: string } = {
       name: regName.trim(),
       role: regRole,
       agencyType: regAgencyType,
       agencyName: getAgencyName(),
-      barangay: regAgencyType === 'BARANGAY' ? regBarangay : undefined,
+      barangay: regAgencyType === 'RESIDENT' ? regBarangay : undefined,
       position: regPosition.trim(),
       badgeOrIdNumber: regBadge.trim() || `EMP-${Math.floor(1000 + Math.random() * 9000)}`,
       email: cleanEmail,
@@ -305,7 +305,7 @@ export const AuthPage: React.FC = () => {
                           type="text"
                           autoComplete="username"
                           autoFocus
-                          placeholder="e.g., brgy.sanaquilino@roxas.gov.ph or USR-BRGY-SANAQUILINO"
+                          placeholder="e.g., mdrrmo@roxas.gov.ph or USR-MDRRMO-01"
                           value={loginIdentifier}
                           onChange={(e) => setLoginIdentifier(e.target.value)}
                           className="w-full pl-9 pr-3 py-2.5 bg-emerald-50/30 border border-emerald-200 rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
@@ -347,7 +347,7 @@ export const AuthPage: React.FC = () => {
                       <div>
                         <div className="font-bold text-emerald-950">Official Government Gateway Notice</div>
                         <div className="text-emerald-800/80 text-[10px] mt-0.5 leading-relaxed">
-                          Authorized access for Barangay Officials, Municipal LGU, DILG personnel, and Resident Citizens. All login events are audited in accordance with RA 10173 (Data Privacy Act) & RA 10175.
+                          Authorized access for MDRRMO Emergency Responders, Municipal LGU, DILG personnel, and Resident Citizens. All login events are audited in accordance with RA 10173 (Data Privacy Act) & RA 10175.
                         </div>
                       </div>
                     </div>
@@ -390,7 +390,7 @@ export const AuthPage: React.FC = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                       {[
                         { type: 'RESIDENT' as AgencyType, label: 'Resident Citizen', icon: UserPlus },
-                        { type: 'BARANGAY' as AgencyType, label: 'Barangay Official', icon: Building2 },
+                        { type: 'MDRRMO' as AgencyType, label: 'MDRRMO (Emergency Ops)', icon: ShieldAlert },
                         { type: 'LGU' as AgencyType, label: 'Municipal LGU (Admin)', icon: Landmark },
                       ].map((ag) => {
                         const Icon = ag.icon;
@@ -414,21 +414,17 @@ export const AuthPage: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Barangay dropdown if BARANGAY or RESIDENT is chosen */}
-                  {(regAgencyType === 'BARANGAY' || regAgencyType === 'RESIDENT') && (
+                  {/* Home Barangay dropdown if RESIDENT is chosen */}
+                  {regAgencyType === 'RESIDENT' && (
                     <div className="space-y-1 bg-emerald-50/60 p-3 rounded-2xl border border-emerald-200">
                       <label className="block text-xs font-bold text-emerald-900">
-                        {regAgencyType === 'RESIDENT' ? 'Tinitirahang Barangay sa Roxas (Home Barangay):' : 'Select Barangay in Roxas:'}
+                        Tinitirahang Barangay sa Roxas (Home Barangay):
                       </label>
                       <select
                         value={regBarangay}
                         onChange={(e) => {
                           setRegBarangay(e.target.value);
-                          if (regAgencyType === 'RESIDENT') {
-                            setRegBadge(`RES-${e.target.value.slice(0, 3).toUpperCase()}-${Math.floor(1000 + Math.random() * 9000)}`);
-                          } else {
-                            setRegBadge(`PB-${e.target.value.slice(0, 3).toUpperCase()}-2026`);
-                          }
+                          setRegBadge(`RES-${e.target.value.slice(0, 3).toUpperCase()}-${Math.floor(1000 + Math.random() * 9000)}`);
                         }}
                         className="w-full p-2 bg-white border border-emerald-300 rounded-xl text-xs text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500"
                       >

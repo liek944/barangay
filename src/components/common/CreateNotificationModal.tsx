@@ -46,7 +46,7 @@ export const CreateNotificationModal: React.FC<CreateNotificationModalProps> = (
     if (!title.trim() || !message.trim()) return;
 
     const targetAgencyTypes: AgencyType[] = targetAgencyType === 'ALL' 
-      ? ['RESIDENT', 'BARANGAY', 'LGU', 'DILG', 'ADMIN'] 
+      ? ['RESIDENT', 'MDRRMO', 'LGU', 'ADMIN'] 
       : [targetAgencyType];
 
     const targetRoles: UserRole[] | undefined = targetAgencyType === 'RESIDENT' 
@@ -63,7 +63,7 @@ export const CreateNotificationModal: React.FC<CreateNotificationModalProps> = (
       {
         targetAgencyTypes,
         targetRoles,
-        targetBarangay: (targetAgencyType === 'RESIDENT' || targetAgencyType === 'BARANGAY') ? targetBarangay : undefined
+        targetBarangay: targetAgencyType === 'RESIDENT' ? targetBarangay : undefined
       }
     );
 
@@ -127,9 +127,8 @@ export const CreateNotificationModal: React.FC<CreateNotificationModalProps> = (
               <div className="grid grid-cols-3 gap-2">
                 {[
                   { id: 'RESIDENT', label: 'Residents Only', desc: 'Citizens of Roxas' },
-                  { id: 'BARANGAY', label: 'Barangay Lupon', desc: 'Barangay Officials' },
-                  { id: 'LGU', label: 'LGU Municipal', desc: 'Mayor & Social Welfare' },
-                  { id: 'DILG', label: 'DILG Oversight', desc: 'MLGOO & Directors' },
+                  { id: 'MDRRMO', label: 'MDRRMO Rescue', desc: 'Emergency Operations' },
+                  { id: 'LGU', label: 'LGU Municipal', desc: 'Mayor & Executive' },
                   { id: 'ALL', label: 'All Agencies', desc: 'Broadcast Network' }
                 ].map((item) => (
                   <button
@@ -149,8 +148,8 @@ export const CreateNotificationModal: React.FC<CreateNotificationModalProps> = (
               </div>
             </div>
 
-            {/* Target Barangay (if targeting residents or barangay) */}
-            {(targetAgencyType === 'RESIDENT' || targetAgencyType === 'BARANGAY') && (
+            {/* Target Barangay (if targeting residents) */}
+            {targetAgencyType === 'RESIDENT' && (
               <div>
                 <label className="block text-xs font-bold text-slate-700 uppercase tracking-tight mb-1.5">
                   Target Barangay Location

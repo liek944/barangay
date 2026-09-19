@@ -40,12 +40,12 @@ export const EmergencyAccidentAlarmModal: React.FC = () => {
     }
   });
 
-  const isBarangayOfficer = currentUser?.agencyType === 'BARANGAY';
+  const isMdrrmoOfficer = currentUser?.agencyType === 'MDRRMO';
   const userBarangay = currentUser?.barangay;
 
-  // Listen for unacknowledged accident emergency notifications for this barangay
+  // Listen for unacknowledged accident emergency notifications for MDRRMO
   useEffect(() => {
-    if (!isBarangayOfficer || !userBarangay) {
+    if (!isMdrrmoOfficer) {
       stopAccidentAlarmSound();
       setActiveAccidentNotif(null);
       return;
@@ -54,8 +54,8 @@ export const EmergencyAccidentAlarmModal: React.FC = () => {
     const urgentAccidentNotif = notifications.find((n) => {
       if (acknowledgedIds.includes(n.id)) return false;
 
-      // Check if it's an accident alert for this barangay
-      const isTargetedBarangay = !n.targetBarangay || n.targetBarangay === userBarangay;
+      // Check if it's an accident alert (MDRRMO receives municipal-wide or sector targeted)
+      const isTargetedBarangay = !userBarangay || !n.targetBarangay || n.targetBarangay === userBarangay;
       const isAccidentFlag = 
         n.isAccidentEmergency || 
         n.title.toLowerCase().includes('accident') || 
@@ -84,9 +84,9 @@ export const EmergencyAccidentAlarmModal: React.FC = () => {
     return () => {
       stopAccidentAlarmSound();
     };
-  }, [notifications, isBarangayOfficer, userBarangay, acknowledgedIds, isMuted]);
+  }, [notifications, isMdrrmoOfficer, userBarangay, acknowledgedIds, isMuted]);
 
-  if (!activeAccidentNotif || !isBarangayOfficer) {
+  if (!activeAccidentNotif || !isMdrrmoOfficer) {
     return null;
   }
 

@@ -1,17 +1,16 @@
 import { Case, User, AuditLog, NotificationItem } from '../types';
 
 export const SEED_USERS: User[] = [
-  // --- SINGLE PILOT BARANGAY ACCOUNT (SAN AQUILINO ONLY) ---
+  // --- SINGLE PILOT MDRRMO OPERATIONS ACCOUNT ---
   {
-    id: 'USR-BRGY-SANAQUILINO',
-    name: 'Hon. Elena V. Macalalad',
-    role: 'BARANGAY_ADMIN',
-    agencyType: 'BARANGAY',
-    agencyName: 'Barangay San Aquilino LGU',
-    barangay: 'San Aquilino',
-    position: 'Punong Barangay & Traffic Safety Desk',
-    badgeOrIdNumber: 'PB-SAQ-2026',
-    email: 'brgy.sanaquilino@roxas.gov.ph'
+    id: 'USR-MDRRMO-01',
+    name: 'Engr. Nelson V. Castro',
+    role: 'MDRRMO_ADMIN',
+    agencyType: 'MDRRMO',
+    agencyName: 'MDRRMO Roxas Emergency & Rescue Operations',
+    position: 'MDRRMO Operations Head & Emergency Dispatcher',
+    badgeOrIdNumber: 'MDRRMO-ROX-2026',
+    email: 'mdrrmo@roxas.gov.ph'
   },
 
   // --- MUNICIPAL & INTER-AGENCY OVERSIGHT ACCOUNTS ---
@@ -716,8 +715,8 @@ export const SEED_NOTIFICATIONS: NotificationItem[] = [
     caseId: 'BC-2026-005',
     timestamp: '2026-03-11T16:00:00.000Z',
     isRead: true,
-    targetAgency: 'BARANGAY',
-    targetAgencyTypes: ['BARANGAY'],
+    targetAgency: 'MDRRMO',
+    targetAgencyTypes: ['MDRRMO'],
     targetBarangay: 'San Aquilino',
     priority: 'normal'
   },

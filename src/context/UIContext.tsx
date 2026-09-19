@@ -42,7 +42,7 @@ export const UIProvider: React.FC<{ children: ReactNode; currentUser?: User | nu
     if (saved) {
       try {
         const u = JSON.parse(saved);
-        if (u?.agencyType === 'BARANGAY' && u.barangay) return u.barangay;
+        if ((u?.agencyType === 'MDRRMO' || u?.agencyType === 'BARANGAY') && u.barangay) return u.barangay;
       } catch {}
     }
     return 'ALL';
@@ -54,7 +54,7 @@ export const UIProvider: React.FC<{ children: ReactNode; currentUser?: User | nu
 
   // Auto-align filterBarangay whenever active user changes
   useEffect(() => {
-    if (currentUser?.agencyType === 'BARANGAY' && currentUser.barangay) {
+    if ((currentUser?.agencyType === 'MDRRMO' || (currentUser?.agencyType as string) === 'BARANGAY') && currentUser.barangay) {
       setFilterBarangay(currentUser.barangay);
     }
   }, [currentUser]);

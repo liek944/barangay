@@ -14,6 +14,7 @@ import {
   Settings,
   Building2,
   Shield,
+  ShieldAlert,
   Landmark,
   CheckCircle2,
   AlertCircle,
@@ -35,7 +36,7 @@ export const Sidebar: React.FC = () => {
   const safeCases = cases || [];
   const officialComplaintsCount = safeCases.filter((c) => c.isInvolvingOfficial).length;
 
-  const isBarangay = currentUser.agencyType === 'BARANGAY';
+  const isMdrrmo = currentUser.agencyType === 'MDRRMO';
   const isLgu = currentUser.agencyType === 'LGU';
   const isAdmin = currentUser.agencyType === 'ADMIN';
   const isResident = currentUser.agencyType === 'RESIDENT' || currentUser.role === 'RESIDENT';
@@ -77,39 +78,41 @@ export const Sidebar: React.FC = () => {
       ];
     }
 
-    // 1. BARANGAY ACCOUNT VIEW (Clean, Lupon-focused, mediation & referral oriented)
-    if (isBarangay) {
-      const brgyName = currentUser.barangay || 'San Aquilino';
-      const brgyCases = safeCases.filter(c => c.barangay === brgyName || c.originatingAgency.includes(brgyName));
+    // 1. MDRRMO ACCOUNT VIEW (Emergency dispatch, rescue ops, municipal crash blotter)
+    if (isMdrrmo) {
+      const brgyName = currentUser.barangay;
+      const mdrrmoCases = brgyName 
+        ? safeCases.filter(c => c.barangay === brgyName || c.originatingAgency.includes(brgyName))
+        : safeCases;
 
       return [
         {
           id: 'dashboard',
-          label: 'Barangay Lupon Hub',
-          subtitle: `Brgy. ${brgyName} Operations`,
+          label: 'MDRRMO Operations Hub',
+          subtitle: brgyName ? `Sector: Brgy. ${brgyName}` : 'Municipal Emergency Ops',
           icon: <LayoutDashboard className="w-4 h-4" />
         },
         {
           id: 'cases',
-          label: 'Barangay Blotter & Cases',
-          subtitle: `Jurisdiction: ${brgyName}`,
+          label: 'Crash Blotter & Incident Queue',
+          subtitle: 'Emergency Case Intake',
           icon: <FileSpreadsheet className="w-4 h-4" />,
-          badge: brgyCases.length
+          badge: mdrrmoCases.length
         },
         {
           id: 'gis_map',
-          label: 'Barangay GIS Map',
-          subtitle: `Territory of ${brgyName}`,
+          label: 'Municipal GIS Hazard Map',
+          subtitle: 'Accident Blackspots & GPS',
           icon: <Compass className="w-4 h-4" />
         },
         {
           type: 'header',
-          label: 'BARANGAY STATISTICAL SUBMISSIONS'
+          label: 'MDRRMO INCIDENT REPORTS'
         },
         {
           id: 'annual_narrative',
-          label: 'Annual Case Narrative',
-          subtitle: 'Barangay KP Report Form',
+          label: 'Incident Narrative & Dispatches',
+          subtitle: 'Rescue & Dispatch Log',
           icon: <BookOpenCheck className="w-4 h-4" />
         }
       ];
@@ -207,7 +210,7 @@ export const Sidebar: React.FC = () => {
       <div className="px-3 pt-3">
         <div className="flex items-center gap-2.5 bg-emerald-50/70 p-2.5 rounded-xl border border-emerald-200/80">
           <div className="text-emerald-700">
-            {currentUser.agencyType === 'BARANGAY' && <Building2 className="w-4 h-4" />}
+            {currentUser.agencyType === 'MDRRMO' && <ShieldAlert className="w-4 h-4 text-orange-600" />}
             {currentUser.agencyType === 'LGU' && <Landmark className="w-4 h-4" />}
             {currentUser.agencyType === 'ADMIN' && <Settings className="w-4 h-4" />}
             {currentUser.agencyType === 'RESIDENT' && <UserPlus className="w-4 h-4" />}

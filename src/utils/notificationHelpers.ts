@@ -84,18 +84,18 @@ export function isNotificationForUser(
   }
 
   // ----------------------------------------------------
-  // BARANGAY OFFICIAL ROLE FILTERING
+  // MDRRMO OFFICIAL / RESPONDER ROLE FILTERING
   // ----------------------------------------------------
-  if (userAgencyType === 'BARANGAY') {
-    // If targeted to all BARANGAY agency or specific role
-    if (notif.targetAgencyTypes?.includes('BARANGAY') || notif.targetAgency === 'BARANGAY') {
-      if (!notif.targetBarangay || notif.targetBarangay === userBarangay) {
+  if (userAgencyType === 'MDRRMO' || (userAgencyType as string) === 'BARANGAY') {
+    // If targeted to MDRRMO agency or broadcast
+    if (notif.targetAgencyTypes?.includes('MDRRMO') || (notif.targetAgencyTypes as any)?.includes('BARANGAY') || notif.targetAgency === 'MDRRMO' || notif.targetAgency === 'BARANGAY') {
+      if (!userBarangay || !notif.targetBarangay || notif.targetBarangay === userBarangay) {
         return true;
       }
     }
 
-    // If targeted specifically to this barangay
-    if (notif.targetBarangay && notif.targetBarangay === userBarangay) {
+    // If targeted specifically to this barangay sector
+    if (userBarangay && notif.targetBarangay && notif.targetBarangay === userBarangay) {
       return true;
     }
 
@@ -103,11 +103,16 @@ export function isNotificationForUser(
       return true;
     }
 
-    // Check if case is located in or handled by this Barangay
+    // Check if case is located in or handled by this sector
     if (relatedCase) {
-      if (relatedCase.barangay === userBarangay || relatedCase.originatingAgency.includes(userBarangay || '')) {
+      if (!userBarangay || relatedCase.barangay === userBarangay || relatedCase.originatingAgency.includes(userBarangay || '')) {
         return true;
       }
+    }
+
+    // Emergency accident alerts are always visible to MDRRMO
+    if (notif.isAccidentEmergency || notif.priority === 'urgent') {
+      return true;
     }
 
     return false;
@@ -188,18 +193,18 @@ export function getRoleNotificationMeta(agencyType: AgencyType, barangay?: strin
           { id: 'ADVISORIES', label: 'Community Notices' }
         ]
       };
-    case 'BARANGAY':
+    case 'MDRRMO':
       return {
-        centerTitle: 'Barangay Lupon & Peace Desk Alerts',
-        badgeLabel: `Barangay ${barangay || 'San Aquilino'} LGU`,
-        subHeader: 'Incoming resident blotter reports, summons deadlines, and KP conciliation',
-        themeColor: 'bg-teal-700 text-white',
-        borderBadge: 'border-teal-300 bg-teal-50 text-teal-900',
-        emptyMessage: `No active blotter alerts in Barangay ${barangay || 'San Aquilino'}.`,
+        centerTitle: 'MDRRMO Emergency & Rescue Alerts',
+        badgeLabel: barangay ? `MDRRMO • Sector ${barangay}` : 'MDRRMO Roxas Operations',
+        subHeader: 'Incoming vehicular accidents, rescue ambulance dispatches, and crash blotter triage',
+        themeColor: 'bg-orange-700 text-white',
+        borderBadge: 'border-orange-300 bg-orange-50 text-orange-900',
+        emptyMessage: 'No active emergency dispatch alerts.',
         quickFilters: [
-          { id: 'ALL', label: 'All Barangay Alerts' },
-          { id: 'REPORTS', label: 'Resident Reports' },
-          { id: 'MEDIATION', label: 'Lupon Hearings' },
+          { id: 'ALL', label: 'All Alerts' },
+          { id: 'ACCIDENTS', label: 'Vehicular Crashes' },
+          { id: 'DISPATCH', label: 'Ambulance Trips' },
           { id: 'REFERRALS', label: 'Inter-Agency' }
         ]
       };
